@@ -1,0 +1,675 @@
+History:
+Open
+Close
+High
+Low
+Volume
+Adj Close
+
+Meta History:
+Currency
+Instrument Type
+TimeZone
+Location
+Prince Hint
+
+Shares:
+Total Share Count
+
+Options:
+Options Expirations
+
+Holders:
+Major Holders
+Institutional Holders
+Mutual Fund Holders
+
+Actions:
+Dividends
+Splits
+
+Recommendations:
+Recommendations
+
+Income Statement:
+Tax Effect Of Unusual Items
+Tax Rate For Calcs
+Normalized EBITDA
+Total Unusual Items
+Total Unusual Items Excluding Goodwill
+Net Income From Continuing Operation Net Minority Interest
+Reconciled Depreciation
+Reconciled Cost Of Revenue
+EBITDA
+EBIT
+Net Interest Income
+Interest Expense
+Interest Income
+Normalized Income
+Net Income From Continuing And Discontinued Operations
+Total Expenses
+Total Operating Income As Reported
+Diluted Average Shares
+Basic Average Shares
+Diluted EPS
+Basic EPS
+Diluted NI Available to Com Stockholders
+Net Income Common Stockholders
+Net Income
+Net Income Including Noncontrolling Interests
+Net Income Continuous Operations
+Tax Provision
+Pretax Income
+Other Income Expense
+Other Non Operating Income Expenses
+Special Income Charges
+Write Off
+Gain On Sale Of Security
+Net Non Operating Interest Income Expense
+Interest Expense Non Operating
+Interest Income Non Operating
+Operating Income
+Operating Expense
+Research And Development
+Selling General And Administration
+Selling And Marketing Expense
+General And Administrative Expense
+Other G&A
+Gross Profit
+Cost Of Revenue
+Total Revenue
+Operating Revenue
+
+Cash Flow Statement:
+Free Cash Flow
+Repurchase Of Capital Stock
+Repayment Of Debt
+Issuance Of Debt
+Issuance Of Capital Stock
+Capital Expenditure
+End Cash Position
+Beginning Cash Position
+Effect Of Exchange Rate Changes
+Changes In Cash
+Financing Cash Flow
+Cash Flow From Continuing Financing Activities
+Net Other Financing Charges
+Cash Dividends Paid
+Common Stock Dividend Paid
+Net Common Stock Issuance
+Common Stock Payments
+Common Stock Issuance
+Net Issuance Payments Of Debt
+Net Short Term Debt Issuance
+Net Long Term Debt Issuance
+Long Term Debt Payments
+Long Term Debt Issuance
+Investing Cash Flow
+Cash Flow From Continuing Investing Activities
+Net Other Investing Changes
+Net Investment Purchase And Sale
+Sale Of Investment
+Purchase Of Investment
+Net Business Purchase And Sale
+Purchase Of Business
+Net PPE Purchase And Sale
+Purchase Of PPE
+Operating Cash Flow
+Cash Flow From Continuing Operating Activities
+Change In Working Capital
+Change In Other Working Capital
+Change In Other Current Liabilities
+Change In Other Current Assets
+Change In Payables And Accrued Expense
+Change In Payable
+Change In Account Payable
+Change In Inventory
+Change In Receivables
+Changes In Account Receivables
+Stock Based Compensation
+Deferred Tax
+Deferred Income Tax
+Depreciation Amortization Depletion
+Depreciation And Amortization
+Depreciation
+Operating Gains Losses
+Gain Loss On Investment Securities
+Net Income From Continuing Operations
+
+Balance Sheet:
+Ordinary Shares Number
+Share Issued
+Net Debt
+Total Debt
+Tangible Book Value
+Invested Capital
+Working Capital
+Net Tangible Assets
+Capital Lease Obligations
+Common Stock Equity
+Total Capitalization
+Total Equity Gross Minority Interest
+Stockholders Equity
+Gains Losses Not Affecting Retained Earnings
+Other Equity Adjustments
+Retained Earnings
+Capital Stock
+Common Stock
+Total Liabilities Net Minority Interest
+Total Non Current Liabilities Net Minority Interest
+Other Non Current Liabilities
+Trade and Other Payables Non Current
+Non Current Deferred Liabilities
+Non Current Deferred Revenue
+Non Current Deferred Taxes Liabilities
+Long Term Debt And Capital Lease Obligation
+Long Term Capital Lease Obligation
+Long Term Debt
+Current Liabilities
+Other Current Liabilities
+Current Deferred Liabilities
+Current Deferred Revenue
+Current Debt And Capital Lease Obligation
+Current Debt
+Pension and Other Post Retirement Benefit Plans Current
+Payables And Accrued Expenses
+Payables
+Total Tax Payable
+Income Tax Payable
+Accounts Payable
+Total Assets
+Total Non Current Assets
+Other Non Current Assets
+Investments And Advances
+Long Term Equity Investment
+Goodwill And Other Intangible Assets
+Other Intangible Assets
+Goodwill
+Net PPE
+Accumulated Depreciation
+Gross PPE
+Leases
+Other Properties
+Machinery Furniture Equipment
+Buildings And Improvements
+Land And Improvements
+Properties
+Current Assets
+Other Current Assets
+Hedging Assets Current
+Inventory
+Finished Goods
+Work In Process
+Raw Materials
+Receivables
+Accounts Receivable
+Allowance For Doubtful Accounts Receivable
+Gross Accounts Receivable
+Cash Cash Equivalents And Short Term Investments
+Other Short Term Investments
+Cash And Cash Equivalents
+Cash Equivalents
+Cash Financial
+
+History 
+
+                                 Open        High         Low       Close    Volume  Dividends  Stock Splits
+Date
+2022-11-10 00:00:00-05:00  233.177328  241.001747  232.751450  240.655090  46268000       0.00           0.0
+2022-11-11 00:00:00-05:00  240.664986  245.617144  239.615116  244.745560  34620200       0.00           0.0
+2022-11-14 00:00:00-05:00  239.674562  241.576189  236.921163  239.238770  31123300       0.00           0.0
+2022-11-15 00:00:00-05:00  243.309450  244.636625  237.733315  239.654755  31390100       0.00           0.0
+2022-11-16 00:00:00-05:00  241.144565  242.147730  238.790632  240.091751  24093300       0.68           0.0
+...                               ...         ...         ...         ...       ...        ...           ...
+2023-11-03 00:00:00-04:00  349.630005  354.390015  347.329987  352.799988  23624000       0.00           0.0
+2023-11-06 00:00:00-05:00  353.450012  357.540009  353.350006  356.529999  23828300       0.00           0.0
+2023-11-07 00:00:00-05:00  359.399994  362.459991  357.630005  360.529999  25833900       0.00           0.0
+2023-11-08 00:00:00-05:00  361.679993  363.869995  360.549988  363.200012  26767800       0.00           0.0
+2023-11-09 00:00:00-05:00  362.299988  364.790009  360.362000  360.690002  24784249       0.00           0.0
+
+[251 rows x 7 columns]
+
+
+MetaData
+
+{'currency': 'USD', 'symbol': 'MSFT', 'exchangeName': 'NMS', 'instrumentType': 'EQUITY', 'firstTradeDate': 511108200, 'regularMarketTime': 1699563601, 'gmtoffset': -18000, 'timezone': 'EST', 'exchangeTimezoneName': 'America/New_York', 'regularMarketPrice': 360.69, 'chartPreviousClose': 224.51, 'priceHint': 2, 'currentTradingPeriod': {'pre': {'timezone': 'EST', 'start': 1699520400, 'end': 1699540200, 'gmtoffset': -18000}, 'regular': {'timezone': 'EST', 'start': 1699540200, 'end': 1699563600, 'gmtoffset': -18000}, 'post': {'timezone': 'EST', 'start': 1699563600, 'end': 1699578000, 'gmtoffset': -18000}}, 'dataGranularity': '1d', 'range': '1y', 'validRanges': ['1d', '5d', '1mo', '3mo', '6mo', '1y', '2y', '5y', '10y', 'ytd', 'max']}
+
+
+Actions
+
+                           Dividends  Stock Splits
+Date
+2022-11-16 00:00:00-05:00       0.68           0.0
+2023-02-15 00:00:00-05:00       0.68           0.0
+2023-05-17 00:00:00-04:00       0.68           0.0
+2023-08-16 00:00:00-04:00       0.68           0.0
+
+
+Dividends
+
+Date
+2022-11-16 00:00:00-05:00    0.68
+2023-02-15 00:00:00-05:00    0.68
+2023-05-17 00:00:00-04:00    0.68
+2023-08-16 00:00:00-04:00    0.68
+Name: Dividends, dtype: float64
+
+
+Splits
+
+Series([], Name: Stock Splits, dtype: float64)
+
+
+Capital Gains
+
+[]
+
+
+Shares 
+
+2022-01-27 00:00:00-05:00    7496869888
+2022-02-04 00:00:00-05:00    7800719872
+2022-02-05 00:00:00-05:00    7496869888
+2022-02-11 00:00:00-05:00    7496869888
+2022-03-04 00:00:00-05:00    7605040128
+                                ...
+2023-10-26 00:00:00-04:00    7432260096
+2023-10-28 00:00:00-04:00    7432260096
+2023-11-01 00:00:00-04:00    7432260096
+2023-11-03 00:00:00-04:00    7432260096
+2023-11-09 00:00:00-05:00    7432260096
+Length: 84, dtype: int64
+
+
+Annual Income Statement 
+
+                                                        2023-06-30      2022-06-30      2021-06-30      2020-06-30
+Tax Effect Of Unusual Items                                    0.0             0.0             0.0             0.0
+Tax Rate For Calcs                                        0.189786        0.131134        0.138266            0.16
+Normalized EBITDA                                   102384000000.0   97843000000.0   81602000000.0   65755000000.0
+Total Unusual Items                                    -15000000.0     334000000.0    1303000000.0      28000000.0
+Total Unusual Items Excluding Goodwill                 -15000000.0     334000000.0    1303000000.0      28000000.0
+Net Income From Continuing Operation Net Minori...   72361000000.0   72738000000.0   61271000000.0   44281000000.0
+Reconciled Depreciation                              13861000000.0   14460000000.0   11686000000.0   12796000000.0
+Reconciled Cost Of Revenue                           65863000000.0   62650000000.0   52232000000.0   46078000000.0
+EBITDA                                              102384000000.0   97843000000.0   81602000000.0   65755000000.0
+EBIT                                                 88523000000.0   83383000000.0   69916000000.0   52959000000.0
+Net Interest Income                                   1026000000.0      31000000.0    -215000000.0      89000000.0
+Interest Expense                                      1968000000.0    2063000000.0    2346000000.0    2591000000.0
+Interest Income                                       2994000000.0    2094000000.0    2131000000.0    2680000000.0
+Normalized Income                                    72361000000.0   72738000000.0   61271000000.0   44281000000.0
+Net Income From Continuing And Discontinued Ope...   72361000000.0   72738000000.0   61271000000.0   44281000000.0
+Total Expenses                                      123392000000.0  114887000000.0   98172000000.0   90056000000.0
+Total Operating Income As Reported                   88523000000.0   83383000000.0   69916000000.0   52959000000.0
+Diluted Average Shares                                7472000000.0    7540000000.0    7608000000.0    7683000000.0
+Basic Average Shares                                  7446000000.0    7496000000.0    7547000000.0    7610000000.0
+Diluted EPS                                                   9.68            9.65            8.05            5.76
+Basic EPS                                                     9.72             9.7            8.12            5.82
+Diluted NI Availto Com Stockholders                  72361000000.0   72738000000.0   61271000000.0   44281000000.0
+Net Income Common Stockholders                       72361000000.0   72738000000.0   61271000000.0   44281000000.0
+Net Income                                           72361000000.0   72738000000.0   61271000000.0   44281000000.0
+Net Income Including Noncontrolling Interests        72361000000.0   72738000000.0   61271000000.0   44281000000.0
+Net Income Continuous Operations                     72361000000.0   72738000000.0   61271000000.0   44281000000.0
+Tax Provision                                        16950000000.0   10978000000.0    9831000000.0    8755000000.0
+Pretax Income                                        89311000000.0   83716000000.0   71102000000.0   53036000000.0
+Other Income Expense                                   788000000.0     333000000.0    1186000000.0      77000000.0
+Other Non Operating Income Expenses                    788000000.0     333000000.0    1186000000.0      77000000.0
+Special Income Charges                                 -30000000.0    -101000000.0             NaN             NaN
+Write Off                                               30000000.0     101000000.0             NaN             NaN
+Gain On Sale Of Security                                15000000.0     435000000.0    1303000000.0      28000000.0
+Net Non Operating Interest Income Expense             1026000000.0      31000000.0    -215000000.0      89000000.0
+Interest Expense Non Operating                        1968000000.0    2063000000.0    2346000000.0    2591000000.0
+Interest Income Non Operating                         2994000000.0    2094000000.0    2131000000.0    2680000000.0
+Operating Income                                     88523000000.0   83383000000.0   69916000000.0   52959000000.0
+Operating Expense                                    57529000000.0   52237000000.0   45940000000.0   43978000000.0
+Research And Development                             27195000000.0   24512000000.0   20716000000.0   19269000000.0
+Selling General And Administration                   30334000000.0   27725000000.0   25224000000.0   24709000000.0
+Selling And Marketing Expense                        22759000000.0   21825000000.0   20117000000.0   19598000000.0
+General And Administrative Expense                    7575000000.0    5900000000.0    5107000000.0    5111000000.0
+Other Gand A                                          7575000000.0    5900000000.0    5107000000.0    5111000000.0
+Gross Profit                                        146052000000.0  135620000000.0  115856000000.0   96937000000.0
+Cost Of Revenue                                      65863000000.0   62650000000.0   52232000000.0   46078000000.0
+Total Revenue                                       211915000000.0  198270000000.0  168088000000.0  143015000000.0
+Operating Revenue                                   211915000000.0  198270000000.0  168088000000.0  143015000000.0
+
+
+Quarterly Income Statement
+
+                                                            2023-09-30     2023-06-30     2023-03-31     2022-12-31     2022-09-30
+Tax Effect Of Unusual Items                           -21045118.017886            0.0            0.0            0.0    -10640000.0
+Tax Rate For Calcs                                            0.183001           0.19       0.192917       0.192438           0.19
+Normalized EBITDA                                        31845000000.0  28128000000.0  25901000000.0  24047000000.0  24918000000.0
+Total Unusual Items                                       -115000000.0    111000000.0    162000000.0   -232000000.0    -56000000.0
+Total Unusual Items Excluding Goodwill                    -115000000.0    111000000.0    162000000.0   -232000000.0    -56000000.0
+Net Income From Continuing Operation Net Minori...       22291000000.0  20081000000.0  18299000000.0  16425000000.0  17556000000.0
+Reconciled Depreciation                                   3921000000.0   3874000000.0   3549000000.0   3648000000.0   2790000000.0
+Reconciled Cost Of Revenue                               16302000000.0  16795000000.0  16128000000.0  17488000000.0  15452000000.0
+EBITDA                                                   31730000000.0  28128000000.0  25901000000.0  24047000000.0  24862000000.0
+EBIT                                                     27809000000.0  24254000000.0  22352000000.0  20399000000.0  22072000000.0
+Net Interest Income                                        641000000.0    423000000.0    252000000.0    210000000.0    141000000.0
+Interest Expense                                           525000000.0    482000000.0    496000000.0    490000000.0    500000000.0
+Interest Income                                           1166000000.0    905000000.0    748000000.0    700000000.0    641000000.0
+Normalized Income                                   22384954881.982113  20081000000.0  18299000000.0  16425000000.0  17601360000.0
+Net Income From Continuing And Discontinued Ope...       22291000000.0  20081000000.0  18299000000.0  16425000000.0  17556000000.0
+Total Expenses                                           29622000000.0  31935000000.0  30505000000.0  32348000000.0  28604000000.0
+Total Operating Income As Reported                       26895000000.0  24254000000.0  22352000000.0  20399000000.0  21518000000.0
+Diluted Average Shares                                    7462000000.0   7467000000.0   7464000000.0   7473000000.0   7485000000.0
+Basic Average Shares                                      7429000000.0   7434000000.0   7441000000.0   7451000000.0   7457000000.0
+Diluted EPS                                                       2.99           2.69           2.45            2.2           2.35
+Basic EPS                                                          3.0            2.7           2.46            2.2           2.35
+Diluted NI Availto Com Stockholders                      22291000000.0  20081000000.0  18299000000.0  16425000000.0  17556000000.0
+Net Income Common Stockholders                           22291000000.0  20081000000.0  18299000000.0  16425000000.0  17556000000.0
+Net Income                                               22291000000.0  20081000000.0  18299000000.0  16425000000.0  17556000000.0
+Net Income Including Noncontrolling Interests            22291000000.0  20081000000.0  18299000000.0  16425000000.0  17556000000.0
+Net Income Continuous Operations                         22291000000.0  20081000000.0  18299000000.0  16425000000.0  17556000000.0
+Tax Provision                                             4993000000.0   4646000000.0   4374000000.0   3914000000.0   4016000000.0
+Pretax Income                                            27284000000.0  24727000000.0  22673000000.0  20339000000.0  21572000000.0
+Other Income Expense                                      -252000000.0    473000000.0    321000000.0    -60000000.0    -87000000.0
+Other Non Operating Income Expenses                       -137000000.0    473000000.0    321000000.0    -60000000.0    -31000000.0
+Gain On Sale Of Security                                  -115000000.0    141000000.0    162000000.0   -232000000.0    -56000000.0
+Net Non Operating Interest Income Expense                  641000000.0    423000000.0    252000000.0    210000000.0    141000000.0
+Interest Expense Non Operating                             525000000.0    482000000.0    496000000.0    490000000.0    500000000.0
+Interest Income Non Operating                             1166000000.0    905000000.0    748000000.0    700000000.0    641000000.0
+Operating Income                                         26895000000.0  24254000000.0  22352000000.0  20399000000.0  21518000000.0
+Operating Expense                                        13320000000.0  15140000000.0  14377000000.0  14860000000.0  13152000000.0
+Research And Development                                  6659000000.0   6739000000.0   6984000000.0   6844000000.0   6628000000.0
+Selling General And Administration                        6661000000.0   8401000000.0   7393000000.0   8016000000.0   6524000000.0
+Selling And Marketing Expense                             5187000000.0   6204000000.0   5750000000.0   5679000000.0   5126000000.0
+General And Administrative Expense                        1474000000.0   2197000000.0   1643000000.0   2337000000.0   1398000000.0
+Other Gand A                                              1474000000.0   2197000000.0   1643000000.0   2337000000.0   1398000000.0
+Gross Profit                                             40215000000.0  39394000000.0  36729000000.0  35259000000.0  34670000000.0
+Cost Of Revenue                                          16302000000.0  16795000000.0  16128000000.0  17488000000.0  15452000000.0
+Total Revenue                                            56517000000.0  56189000000.0  52857000000.0  52747000000.0  50122000000.0
+Operating Revenue                                        56517000000.0  56189000000.0  52857000000.0  52747000000.0  50122000000.0
+
+
+Annual Balance Sheet 
+
+                                                      2023-06-30      2022-06-30      2021-06-30      2020-06-30
+Ordinary Shares Number                              7432000000.0    7464000000.0    7519000000.0    7571000000.0
+Share Issued                                        7432000000.0    7464000000.0    7519000000.0    7571000000.0
+Net Debt                                           12533000000.0   35850000000.0   43922000000.0   49751000000.0
+Total Debt                                         59965000000.0   61270000000.0   67775000000.0   70998000000.0
+Tangible Book Value                               128971000000.0   87720000000.0   84477000000.0   67915000000.0
+...                                                          ...             ...             ...             ...
+Cash Cash Equivalents And Short Term Investments  111262000000.0  104757000000.0  130334000000.0  136527000000.0
+Other Short Term Investments                       76558000000.0   90826000000.0  116110000000.0  122951000000.0
+Cash And Cash Equivalents                          34704000000.0   13931000000.0   14224000000.0   13576000000.0
+Cash Equivalents                                   26226000000.0    5673000000.0    6952000000.0             NaN
+Cash Financial                                      8478000000.0    8258000000.0    7272000000.0             NaN
+
+[73 rows x 4 columns]
+
+
+Quarterly Balance Sheet
+
+                                                      2023-09-30      2023-06-30      2023-03-31      2022-12-31      2022-09-30
+Ordinary Shares Number                              7431000000.0    7432000000.0    7437000000.0    7447000000.0    7457000000.0
+Share Issued                                        7431000000.0    7432000000.0    7437000000.0    7447000000.0    7457000000.0
+Net Debt                                                     NaN   12533000000.0   21648000000.0   32470000000.0   25738000000.0
+Total Debt                                         84989000000.0   59965000000.0   60522000000.0   60114000000.0   60282000000.0
+Tangible Book Value                               144029000000.0  128971000000.0  116864000000.0  104877000000.0   95299000000.0
+...                                                          ...             ...             ...             ...             ...
+Cash Cash Equivalents And Short Term Investments  143945000000.0  111262000000.0  104427000000.0   99508000000.0  107244000000.0
+Other Short Term Investments                       63493000000.0   76558000000.0   77865000000.0   83862000000.0   84360000000.0
+Cash And Cash Equivalents                          80452000000.0   34704000000.0   26562000000.0   15646000000.0   22884000000.0
+Cash Equivalents                                   73074000000.0   26226000000.0   18053000000.0    8342000000.0   15647000000.0
+Cash Financial                                      7378000000.0    8478000000.0    8509000000.0    7304000000.0    7237000000.0
+
+[73 rows x 5 columns]
+
+
+Annual Cash Flow Statement 
+
+                                                   2023-06-30     2022-06-30     2021-06-30     2020-06-30
+Free Cash Flow                                  59475000000.0  65149000000.0  56118000000.0  45234000000.0
+Repurchase Of Capital Stock                    -22245000000.0 -32696000000.0 -27385000000.0 -22968000000.0
+Repayment Of Debt                               -2750000000.0  -9023000000.0  -3750000000.0  -5518000000.0
+Issuance Of Debt                                          NaN            NaN            NaN            0.0
+Issuance Of Capital Stock                        1866000000.0   1841000000.0   1693000000.0   1343000000.0
+Capital Expenditure                            -28107000000.0 -23886000000.0 -20622000000.0 -15441000000.0
+End Cash Position                               34704000000.0  13931000000.0  14224000000.0  13576000000.0
+Beginning Cash Position                         13931000000.0  14224000000.0  13576000000.0  11356000000.0
+Effect Of Exchange Rate Changes                  -194000000.0   -141000000.0    -29000000.0   -201000000.0
+Changes In Cash                                 20967000000.0   -152000000.0    677000000.0   2421000000.0
+Financing Cash Flow                            -43935000000.0 -58876000000.0 -48486000000.0 -46031000000.0
+Cash Flow From Continuing Financing Activities -43935000000.0 -58876000000.0 -48486000000.0 -46031000000.0
+Net Other Financing Charges                     -1006000000.0   -863000000.0  -2523000000.0  -3751000000.0
+Cash Dividends Paid                            -19800000000.0 -18135000000.0 -16521000000.0 -15137000000.0
+Common Stock Dividend Paid                     -19800000000.0 -18135000000.0 -16521000000.0 -15137000000.0
+Net Common Stock Issuance                      -20379000000.0 -30855000000.0 -25692000000.0 -21625000000.0
+Common Stock Payments                          -22245000000.0 -32696000000.0 -27385000000.0 -22968000000.0
+Common Stock Issuance                            1866000000.0   1841000000.0   1693000000.0   1343000000.0
+Net Issuance Payments Of Debt                   -2750000000.0  -9023000000.0  -3750000000.0  -5518000000.0
+Net Short Term Debt Issuance                              NaN            NaN            NaN            0.0
+Net Long Term Debt Issuance                     -2750000000.0  -9023000000.0  -3750000000.0  -5518000000.0
+Long Term Debt Payments                         -2750000000.0  -9023000000.0  -3750000000.0  -5518000000.0
+Long Term Debt Issuance                                   NaN            NaN            NaN            0.0
+Investing Cash Flow                            -22680000000.0 -30311000000.0 -27577000000.0 -12223000000.0
+Cash Flow From Continuing Investing Activities -22680000000.0 -30311000000.0 -27577000000.0 -12223000000.0
+Net Other Investing Changes                     -3116000000.0  -2825000000.0   -922000000.0  -1241000000.0
+Net Investment Purchase And Sale                10213000000.0  18438000000.0   2876000000.0   6980000000.0
+Sale Of Investment                              47864000000.0  44894000000.0  65800000000.0  84170000000.0
+Purchase Of Investment                         -37651000000.0 -26456000000.0 -62924000000.0 -77190000000.0
+Net Business Purchase And Sale                  -1670000000.0 -22038000000.0  -8909000000.0  -2521000000.0
+Purchase Of Business                            -1670000000.0 -22038000000.0  -8909000000.0  -2521000000.0
+Net PPE Purchase And Sale                      -28107000000.0 -23886000000.0 -20622000000.0 -15441000000.0
+Purchase Of PPE                                -28107000000.0 -23886000000.0 -20622000000.0 -15441000000.0
+Operating Cash Flow                             87582000000.0  89035000000.0  76740000000.0  60675000000.0
+Cash Flow From Continuing Operating Activities  87582000000.0  89035000000.0  76740000000.0  60675000000.0
+Change In Working Capital                       -2388000000.0    446000000.0   -936000000.0   2148000000.0
+Change In Other Working Capital                  5177000000.0   5805000000.0   2324000000.0   2212000000.0
+Change In Other Current Liabilities              2825000000.0   3169000000.0   5551000000.0   2694000000.0
+Change In Other Current Assets                  -4824000000.0  -3514000000.0  -4391000000.0  -3367000000.0
+Change In Payables And Accrued Expense          -2721000000.0   2943000000.0   2798000000.0   3018000000.0
+Change In Payable                               -2721000000.0   2943000000.0   2798000000.0   3018000000.0
+Change In Account Payable                       -2721000000.0   2943000000.0   2798000000.0   3018000000.0
+Change In Inventory                              1242000000.0  -1123000000.0   -737000000.0    168000000.0
+Change In Receivables                           -4087000000.0  -6834000000.0  -6481000000.0  -2577000000.0
+Changes In Account Receivables                  -4087000000.0  -6834000000.0  -6481000000.0  -2577000000.0
+Stock Based Compensation                         9611000000.0   7502000000.0   6118000000.0   5289000000.0
+Deferred Tax                                    -6059000000.0  -5702000000.0   -150000000.0  -3620000000.0
+Deferred Income Tax                             -6059000000.0  -5702000000.0   -150000000.0  -3620000000.0
+Depreciation Amortization Depletion             13861000000.0  14460000000.0  11686000000.0  12796000000.0
+Depreciation And Amortization                   13861000000.0  14460000000.0  11686000000.0  12796000000.0
+Depreciation                                    13861000000.0  14460000000.0  11686000000.0  12796000000.0
+Operating Gains Losses                            196000000.0   -409000000.0  -1249000000.0   -219000000.0
+Gain Loss On Investment Securities                        NaN            NaN            NaN   -219000000.0
+Net Income From Continuing Operations           72361000000.0  72738000000.0  61271000000.0  44281000000.0
+
+
+Quarterly Cash Flow Statement
+
+                                                   2023-09-30     2023-06-30     2023-03-31     2022-12-31     2022-09-30
+Free Cash Flow                                  20666000000.0  19827000000.0  17834000000.0   4899000000.0  16915000000.0
+Repurchase Of Capital Stock                     -4831000000.0  -5704000000.0  -5509000000.0  -5459000000.0  -5573000000.0
+Repayment Of Debt                               -1500000000.0  -1000000000.0            0.0   -750000000.0  -1000000000.0
+Issuance Of Debt                                25765000000.0            NaN            NaN            NaN            NaN
+Issuance Of Capital Stock                         685000000.0    512000000.0    536000000.0    243000000.0    575000000.0
+Capital Expenditure                             -9917000000.0  -8943000000.0  -6607000000.0  -6274000000.0  -6283000000.0
+End Cash Position                               80452000000.0  34704000000.0  26562000000.0  15646000000.0  22884000000.0
+Beginning Cash Position                         34704000000.0  26562000000.0  15646000000.0  22884000000.0  13931000000.0
+Effect Of Exchange Rate Changes                   -99000000.0    -81000000.0     29000000.0     88000000.0   -230000000.0
+Changes In Cash                                 45847000000.0   8223000000.0  10887000000.0  -7326000000.0   9183000000.0
+Financing Cash Flow                             14761000000.0 -11413000000.0 -10290000000.0 -11349000000.0 -10883000000.0
+Cash Flow From Continuing Financing Activities  14761000000.0 -11413000000.0 -10290000000.0 -11349000000.0 -10883000000.0
+Net Other Financing Charges                      -307000000.0   -167000000.0   -258000000.0   -317000000.0   -264000000.0
+Cash Dividends Paid                             -5051000000.0  -5054000000.0  -5059000000.0  -5066000000.0  -4621000000.0
+Common Stock Dividend Paid                      -5051000000.0  -5054000000.0  -5059000000.0  -5066000000.0  -4621000000.0
+Net Common Stock Issuance                       -4146000000.0  -5192000000.0  -4973000000.0  -5216000000.0  -4998000000.0
+Common Stock Payments                           -4831000000.0  -5704000000.0  -5509000000.0  -5459000000.0  -5573000000.0
+Common Stock Issuance                             685000000.0    512000000.0    536000000.0    243000000.0    575000000.0
+Net Issuance Payments Of Debt                   24265000000.0  -1000000000.0            0.0   -750000000.0  -1000000000.0
+Net Short Term Debt Issuance                    18692000000.0            NaN            NaN            NaN            NaN
+Short Term Debt Issuance                        18692000000.0            NaN            NaN            NaN            NaN
+Net Long Term Debt Issuance                      5573000000.0  -1000000000.0            0.0   -750000000.0  -1000000000.0
+Long Term Debt Payments                         -1500000000.0  -1000000000.0            0.0   -750000000.0  -1000000000.0
+Long Term Debt Issuance                          7073000000.0            NaN            NaN            NaN            NaN
+Investing Cash Flow                               503000000.0  -9134000000.0  -3264000000.0  -7150000000.0  -3132000000.0
+Cash Flow From Continuing Investing Activities    503000000.0  -9134000000.0  -3264000000.0  -7150000000.0  -3132000000.0
+Net Other Investing Changes                      -982000000.0   -269000000.0  -1686000000.0   -301000000.0   -860000000.0
+Net Investment Purchase And Sale                12588000000.0    419000000.0   5330000000.0    104000000.0   4360000000.0
+Sale Of Investment                              21048000000.0  12395000000.0  14393000000.0  11703000000.0   9373000000.0
+Purchase Of Investment                          -8460000000.0 -11976000000.0  -9063000000.0 -11599000000.0  -5013000000.0
+Net Business Purchase And Sale                  -1186000000.0   -341000000.0   -301000000.0   -679000000.0   -349000000.0
+Purchase Of Business                            -1186000000.0   -341000000.0   -301000000.0   -679000000.0   -349000000.0
+Net PPE Purchase And Sale                       -9917000000.0  -8943000000.0  -6607000000.0  -6274000000.0  -6283000000.0
+Purchase Of PPE                                 -9917000000.0  -8943000000.0  -6607000000.0  -6274000000.0  -6283000000.0
+Operating Cash Flow                             30583000000.0  28770000000.0  24441000000.0  11173000000.0  23198000000.0
+Cash Flow From Continuing Operating Activities  30583000000.0  28770000000.0  24441000000.0  11173000000.0  23198000000.0
+Change In Working Capital                        2418000000.0   4243000000.0   1843000000.0 -10347000000.0   1873000000.0
+Change In Other Working Capital                 -2701000000.0  14905000000.0   1233000000.0  -8049000000.0  -2912000000.0
+Change In Other Current Liabilities             -3815000000.0   2864000000.0   1721000000.0   2076000000.0  -3836000000.0
+Change In Other Current Assets                  -2809000000.0  -3967000000.0    598000000.0   -457000000.0   -998000000.0
+Change In Payables And Accrued Expense           1214000000.0   1311000000.0   -407000000.0  -2058000000.0  -1567000000.0
+Change In Payable                                1214000000.0   1311000000.0   -407000000.0  -2058000000.0  -1567000000.0
+Change In Account Payable                        1214000000.0   1311000000.0   -407000000.0  -2058000000.0  -1567000000.0
+Change In Inventory                              -505000000.0    374000000.0    106000000.0   1305000000.0   -543000000.0
+Change In Receivables                           11034000000.0 -11244000000.0  -1408000000.0  -3164000000.0  11729000000.0
+Changes In Account Receivables                  11034000000.0 -11244000000.0  -1408000000.0  -3164000000.0  11729000000.0
+Stock Based Compensation                         2507000000.0   2416000000.0   2465000000.0   2538000000.0   2192000000.0
+Deferred Tax                                     -568000000.0  -1888000000.0  -1675000000.0  -1305000000.0  -1191000000.0
+Deferred Income Tax                              -568000000.0  -1888000000.0  -1675000000.0  -1305000000.0  -1191000000.0
+Depreciation Amortization Depletion              3921000000.0   3874000000.0   3549000000.0   3648000000.0   2790000000.0
+Depreciation And Amortization                    3921000000.0   3874000000.0   3549000000.0   3648000000.0   2790000000.0
+Depreciation                                              NaN   3874000000.0   3549000000.0   3648000000.0   2790000000.0
+Operating Gains Losses                             14000000.0     44000000.0    -40000000.0    214000000.0    -22000000.0
+Net Income From Continuing Operations           22291000000.0  20081000000.0  18299000000.0  16425000000.0  17556000000.0
+
+
+Major Holders 
+
+        0                                      1
+0   0.05%        % of Shares Held by All Insider
+1  73.21%       % of Shares Held by Institutions
+2  73.25%        % of Float Held by Institutions
+3    6255  Number of Institutions Holding Shares
+
+
+Institutional Holders
+
+                              Holder     Shares Date Reported   % Out         Value
+0                 Vanguard Group Inc  653247546    2023-06-29  0.0879  235619858961
+1                     Blackrock Inc.  536245027    2023-06-29  0.0722  193418220097
+2           State Street Corporation  293614078    2023-06-29  0.0395  105903662510
+3                           FMR, LLC  210111250    2023-06-29  0.0283   75785027275
+4      Price (T.Rowe) Associates Inc  159904219    2023-06-29  0.0215   57675853141
+5      Geode Capital Management, LLC  148129470    2023-06-29  0.0199   53428818895
+6                     Morgan Stanley  123498322    2023-06-29  0.0166   44544610063
+7          JP Morgan Chase & Company  113024837    2023-06-29  0.0152   40766928733
+8  Norges Bank Investment Management   86316926    2022-12-30  0.0116   31133652249
+9            Capital World Investors   85507261    2023-06-29  0.0115   30841614178
+
+
+Mutual Fund Holders
+
+                                              Holder     Shares Date Reported   % Out        Value
+0             Vanguard Total Stock Market Index Fund  231883087    2023-06-29  0.0312  83637911216
+1                            Vanguard 500 Index Fund  177034936    2023-06-29  0.0238  63854731498
+2                            Fidelity 500 Index Fund   85181943    2023-08-30  0.0115  30724275228
+3                             SPDR S&P 500 ETF Trust   83514381    2023-09-29  0.0112  30122802286
+4                           iShares Core S&P 500 ETF   70264910    2023-09-29  0.0095  25343850559
+5                         Vanguard Growth Index Fund   63262454    2023-06-29  0.0085  22818134687
+6        Invesco ETF Tr-Invesco QQQ Tr, Series 1 ETF   58757680    2023-08-30  0.0079  21193307742
+7  Vanguard Institutional Index Fund-Institutiona...   50756950    2023-06-29  0.0068  18307524419
+8                         Growth Fund Of America Inc   39310503    2023-09-29  0.0053  14178905423
+9         Vanguard Information Technology Index Fund   39119308    2023-08-30  0.0053  14109943298
+
+
+Earning Dates 
+
+                           EPS Estimate  Reported EPS  Surprise(%)
+Earnings Date
+2024-10-22 06:00:00-04:00           NaN           NaN          NaN
+2024-07-23 06:00:00-04:00           NaN           NaN          NaN
+2024-04-23 06:00:00-04:00           NaN           NaN          NaN
+2024-01-22 16:00:00-05:00          2.60           NaN          NaN
+2024-01-22 05:00:00-05:00          2.60           NaN          NaN
+2023-10-24 12:00:00-04:00          2.65          2.99       0.1270
+2023-07-25 12:00:00-04:00          2.55          2.69       0.0549
+2023-04-25 12:00:00-04:00          2.23          2.45       0.0981
+2023-01-24 11:00:00-05:00          2.29          2.32       0.0109
+2022-10-25 12:00:00-04:00          2.30          2.35       0.0205
+2022-07-26 12:00:00-04:00          2.29          2.23      -0.0274
+2022-04-26 12:00:00-04:00          2.19          2.22       0.0160
+
+
+Options
+
+('2023-11-10', '2023-11-17', '2023-11-24', '2023-12-01', '2023-12-08', '2023-12-15', '2023-12-22', '2024-01-19', '2024-02-16', '2024-03-15', '2024-04-19', '2024-05-17', '2024-06-21', '2024-09-20', '2024-12-20', '2025-01-17', '2025-06-20', '2025-12-19', '2026-01-16')
+
+
+News 
+
+News:
+
+News Item 1:
+Title: Wearable 'Ai Pin' launched by Humane, backed by ex-Apple execs and Microsoft
+Publisher: Reuters
+Link: https://finance.yahoo.com/news/wearable-ai-pin-launched-humane-223425253.html
+Publish Time: 2023-11-09 17:34:25
+Type: STORY
+Related Tickers: MSFT
+
+
+News Item 2:
+Title: New ‘Call of Duty’ Draws Harsh Reviews After Rushed Development
+Publisher: Bloomberg
+Link: https://finance.yahoo.com/news/call-duty-draws-harsh-reviews-215823704.html
+Publish Time: 2023-11-09 16:58:23
+Type: STORY
+Related Tickers: MSFT
+
+
+News Item 3:
+Title: Nvidia Unleashes Barrage Of AI Enhancements, Storms New Buy Point
+Publisher: Investor's Business Daily
+Link: https://finance.yahoo.com/m/598ad422-781e-38bc-bfc9-771b83abea79/nvidia-unleashes-barrage-of.html
+Publish Time: 2023-11-09 16:00:49
+Type: STORY
+Related Tickers: NVDA, MSFT, META, GOOG
+
+
+News Item 4:
+Title: Here's Why 'Magnificent Seven' Stock Microsoft Is A Market Leader
+Publisher: Investor's Business Daily
+Link: https://finance.yahoo.com/m/46185ab1-b25c-39fb-bb69-fa632d607596/here%27s-why-%27magnificent.html
+Publish Time: 2023-11-09 13:25:25
+Type: STORY
+Related Tickers: MSFT, ^DJI
+
+
+News Item 5:
+Title: Russia-Linked Hackers Claim Credit for OpenAI Outage This Week
+Publisher: Bloomberg
+Link: https://finance.yahoo.com/news/russia-linked-hackers-claim-credit-160842432.html
+Publish Time: 2023-11-09 11:08:42
+Type: STORY
+Related Tickers: MSFT
+
+
+News Item 6:
+Title: The Zacks Analyst Blog Highlights Microsoft, NIKE, BP, Hilton and W.W. Grainger
+Publisher: Zacks
+Link: https://finance.yahoo.com/news/zacks-analyst-blog-highlights-microsoft-145900900.html
+Publish Time: 2023-11-09 09:59:00
+Type: STORY
+Related Tickers: NKE, MSFT, BP, GWW
+
+
+News Item 7:
+Title: Microsoft Record Leads $1.5 Trillion Nasdaq Surge
+Publisher: Bloomberg
+Link: https://finance.yahoo.com/news/microsoft-record-leads-1-5-112628124.html
+Publish Time: 2023-11-09 09:41:25
+Type: STORY
+Related Tickers: MSFT, AAPL
+
+
+News Item 8:
+Title: The Zacks Analyst Blog Highlights NVIDIA, Synopsys, Meta, Broadcom and Microsoft
+Publisher: Zacks
+Link: https://finance.yahoo.com/news/zacks-analyst-blog-highlights-nvidia-143900601.html
+Publish Time: 2023-11-09 09:39:00
+Type: STORY
+Related Tickers: NVDA, META, AVGO, SNPS, MSFT
