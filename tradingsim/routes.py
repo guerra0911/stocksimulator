@@ -1,10 +1,10 @@
-from flask import render_template, url_for, flash, redirect
+from flask import render_template, url_for, flash, redirect, request
 from tradingsim import app, db, bcrypt
 from tradingsim.models import User, Transaction
 from tradingsim.forms import RegistrationForm, LoginForm
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 
-profile = [
+dummyData = [
     {'username': 'Nicholas Guerra',
      'balance': '0',
      'stocks': 'APPL, MSFT, DOW'
@@ -17,7 +17,7 @@ profile = [
 
 @app.route("/")                     #Initial Directory
 def home():
-    return render_template('home.html', profile=profile)   
+    return render_template('home.html', dummyData=dummyData)   
 
 @app.route("/portfolio")                #page directory at /portfolio
 def portfolio():
@@ -57,7 +57,8 @@ def login():
         user = User.query.filter_by(email=form.email.data).first()                          #Check if Email User enters matches an email in the database, return all User data for that User found
         if user and bcrypt.check_password_hash(user.password, form.password.data):  #Check if Passwords Entered, matches password just retrieved from User object from email query
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('home'))
+            next_page = request.args.get('next')                                    #Check if User was Redirected to Login Page after trying to access a page only accessible by a logged in user
+            return redirect(next_page) if next_page else redirect(url_for('home'))  #Redirect them back to their initial request if they got redirected, otherwise just go home
         else:
             flash('Login Unsuccessful. Please Check Email & Password', 'danger')
     return render_template('login.html', title='Login', form=form) 
@@ -66,3 +67,8 @@ def login():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+@app.route("/profile")
+@login_required
+def profile():
+    return render_template('profile.html',title='Profile')
