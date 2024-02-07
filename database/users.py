@@ -1,5 +1,7 @@
 import datetime
 import psycopg2
+from portfolio import *
+from stocks import getPrice
 
 conn = psycopg2.connect(host="localhost", dbname="GUERRA", user="postgres", password="ferrari11", port=5432)
 print("Connected to the database")
@@ -7,7 +9,7 @@ cur = conn.cursor()
 
 ###ADMIN###
 def createUser(username, password):
-    if usernameExistsAlready(username):
+    if usernameExists(username):
         print("Username Already Exists, Please Try Again.\n")
         return
     
@@ -21,11 +23,11 @@ def createUser(username, password):
 
     #Pass All Checks
     #Create table for user, username, password
-    cur.execute("""INSERT INTO users (username, password) VALUES
-                (%s, %s)  
+    cur.execute("""INSERT INTO users (username, password, balance) VALUES
+                (%s, %s, %s)  
                 """,
-                (username, password))  
-    cur.commit() 
+                (username, password, 0))  
+    conn.commit() 
     
     print("User Successfully Created")
     
@@ -34,13 +36,13 @@ def removeUser(user):
     pass
 
 def loginUser(username, password):
-    if usernameExistsAlready(username):
+    if usernameExists(username):
         verifyUserAndPass(username, password)
     else:
         print("Username Does Not Exist\n")
         return
 
-def usernameExistsAlready(username):
+def usernameExists(username):
     #Check to See if Username Exists in 1 row in users tabe
     cur.execute("""SELECT EXISTS (SELECT 1 FROM users WHERE
                 username = %s
@@ -99,69 +101,77 @@ def getUserData(username):
         #     user_data[pair[0]] = pair[1]                  #Make a map/dictionary for each column name and corresponding data
         
         # return user_data
+    
+def deposit(username, amount):
+    changeBalance(username, amount)
 
-def getBalance(user):
-    #Return Balance from Database to print or display
-    pass
+def withdraw(username, amount):
+    if(amount > getBalance(username)):
+        print("Not Enough Funds to Withdraw this Amount")
+        return
+    changeBalance(username, -1*amount)
 
-def changeBalance(user, amount):
-    #Change balance in database for sepcific user
-    #Balance in Database for User += amount
-    pass
+def getBalance(username):
+    user_data = getUserData(username)
+    print(f"User: '{username}' balance = '{user_data['balance']}'")
+    return user_data['balance']
 
-def buy(user, numShares, stock):
-    cost = -1 * (numShares * getPrice(stock))
-    changeBalance(user, cost)
-    modifyPortfolio(user, "Buy", numShares, stock)
-    pass
+def changeBalance(username, amount):
+    user_data = getUserData(username)
+    currBalance = user_data['balance']
+    cur.execute(""" UPDATE users
+                SET balance = %s
+                WHERE username = %s
+                """,
+                (currBalance + amount, username))
+    conn.commit()
 
-def sell(user, numShares, stock):
-    revenue = numShares * getPrice(stock)
-    changeBalance(user, revenue)
-    modifyPortfolio(user, "Sell", numShares, stock)
-    pass
-
-
-###PORTFOLIO###
-def modifyPortfolio(user, type, numShares, stock):
-    if type == "Buy":
-        #If Stock exists, then don't append the stock, just add the numShares and price data
-        pass
+def buy(username, numShares, stock):
+    cost = (numShares * getPrice(stock))
+    if(cost > getBalance(username)):
+        print("Not Enough Funds to Buy this Amount")
+        return
     else:
-        #Remove Stock from Stock list, only according to # of shares and if they don't own them
-        pass
+        changeBalance(username, -1*cost)
+        modifyPortfolio(username, "Buy", numShares, stock)
 
-    price = getPrice(stock)
-    date = datetime.datetime.now()
-    #Append -> Type, # SHARES, Stock, Price, Date to Portfolio Table for user
-    pass
-
-def getStockList(user):
-    #Return a list of all the stocks a user owns, and how much money in each
-    pass
-
-def getTransactions(user):
-    #Return a list of all the transactions a user made
-    pass
-
-
-###STOCKS###
-def getPrice(stock):
-    #Get from Database
-    pass
-
-def getPrices(stock, startDate, endDate):
-    #Get list of prices and dates for a specific stock
+def sell(username, numShares, stock):
+    revenue = numShares * getPrice(stock)
+    changeBalance(username, revenue)
+    modifyPortfolio(username, "Sell", numShares, stock)
     pass
 
 def main():
     cur.execute("""CREATE TABLE IF NOT EXISTS users (
-                username VARCHAR(255), 
-                password VARCHAR(255)
+                id SERIAL PRIMARY KEY,
+                username VARCHAR(255) NOT NULL, 
+                password VARCHAR(255) NOT NULL,
+                balance INT NOT NULL
                 );
                 """)
     conn.commit()
     
+    cur.execute("""CREATE TABLE IF NOT EXISTS usersStocks (
+                id SERIAL PRIMARY KEY,
+                userID INT NOT NULL, 
+                ticker VARCHAR(255) NOT NULL,
+                numShares INT NOT NULL
+                );
+                """)
+    conn.commit()
+
+    cur.execute("""CREATE TABLE IF NOT EXISTS usersTransactions (
+                id SERIAL PRIMARY KEY,
+                userID INT NOT NULL,
+                type VARCHAR(255) NOT NULL,
+                ticker VARCHAR(255) NOT NULL,
+                numShares INT NOT NULL, 
+                price INT NOT NULL,
+                date VARCHAR(255) NOT NULL
+                );
+                """)
+    conn.commit()
+
     createUser("Nicholas", "Guerra")        #Create User Successfully
     
     createUser("Nicholas", "NoGuerra")      #User Name Already Exists
@@ -172,6 +182,12 @@ def main():
     loginUser("Nicholas", "Guerra")         #Login Successfully
     loginUser("Nicholas", "Bliss2003")      #Password Does not Match
     loginUser("Kallista", "Bliss")          #Username Does not Exist
+    
+    getBalance("Nicholas")
+    deposit("Nicholas", 300)
+    getBalance("Nicholas")
+    withdraw("Nicholas", 5)
+    getBalance("Nicholas")
 
     conn.commit()
   

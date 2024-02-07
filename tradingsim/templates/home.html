@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Home Page</h1>
+    {% for profile in profile%}
+        <h3>{{profile.username}}</h3>
+        <p>Balance = {{ profile.balance }}</p>
+        <p>Stocks Owned: {{profile.stocks}}</p>
+    {%endfor%}
+{% endblock content%}
+
