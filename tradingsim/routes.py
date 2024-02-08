@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request
 from tradingsim import app, db, bcrypt
 from tradingsim.models import User, Transaction
-from tradingsim.forms import RegistrationForm, LoginForm
+from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm
 from flask_login import login_user, logout_user, current_user, login_required
 
 dummyData = [
@@ -68,7 +68,18 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
-@app.route("/profile")
+@app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html',title='Profile')
+    form = UpdateProfileForm()
+    if form.validate_on_submit():                       #If update form is validated and passes checks
+        current_user.username = form.username.data      #Change Username
+        current_user.email = form.email.data            #Change Email
+        db.session.commit()                             #Change Database
+        flash('Account Details Updated', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username      #Fill form with Current Username before they change it
+        form.email.data = current_user.email            #Fill form with Current Email before they change it
+    image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
+    return render_template('profile.html',title='Profile', image_file=image_file, form=form)
