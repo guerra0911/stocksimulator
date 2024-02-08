@@ -1,3 +1,6 @@
+import secrets  #           Encode file names
+import os                   #Keep file extensions (jpg, png)
+from PIL import Image       #Image Resizing
 from flask import render_template, url_for, flash, redirect, request
 from tradingsim import app, db, bcrypt
 from tradingsim.models import User, Transaction
@@ -68,16 +71,34 @@ def logout():
     logout_user()
     return redirect(url_for('home'))
 
+def save_picture(form_picture):                                 #Save picture file that user uploads
+    random_hex = secrets.token_hex(8)                           #Randomize name of user inputted file to not interfere with stored pics in our file system
+    _, picExt = os.path.splitext(form_picture.filename)        #Keep jpg or png extension and save it. form_picture is passed in. Data that user submitted
+    picture_fn = random_hex + picExt                            #Concatenate random file name plus the extension
+    picture_path = os.path.join(app.root_path, 'static/profile_pics', picture_fn)   #Join the picture filename (picture_fn) into the correct folder
+    
+    output_size = (125, 125)
+    i = Image.open(form_picture)
+    i.thumbnail(output_size)
+
+    i.save(picture_path)                             #Save the image in that correct path
+    return picture_fn
+
+
 @app.route("/profile", methods=['GET', 'POST'])
 @login_required
 def profile():
     form = UpdateProfileForm()
     if form.validate_on_submit():                       #If update form is validated and passes checks
-        current_user.username = form.username.data      #Change Username
+        #If the User Changed their Picture
+        if form.profilePic.data:                                #If there is a picture change request
+            picture_file = save_picture(form.profilePic.data)   #Save the new photo the input into the form
+            current_user.image_file = picture_file              #Set the current users image_file attribute to the newly saved pic
+        current_user.username = form.username.data      #Change Username    
         current_user.email = form.email.data            #Change Email
         db.session.commit()                             #Change Database
-        flash('Account Details Updated', 'success')
-        return redirect(url_for('account'))
+        flash('Your Account has Been Updated!', 'success')
+        return redirect(url_for('profile'))
     elif request.method == 'GET':
         form.username.data = current_user.username      #Fill form with Current Username before they change it
         form.email.data = current_user.email            #Fill form with Current Email before they change it
