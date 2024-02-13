@@ -1,6 +1,8 @@
 from tradingsim import db, login_manager
 import datetime
 from flask_login import UserMixin
+from sqlalchemy import ARRAY
+from sqlalchemy.ext.mutable import MutableList
 
 #From Flask Website
 @login_manager.user_loader
@@ -14,6 +16,12 @@ class User(db.Model, UserMixin):
     image_file = db.Column(db.String(50), nullable=False, default = 'defaultProfilePic.jpg')
     password = db.Column(db.String(60), nullable=False)
     transactions = db.relationship('Transaction', backref='author', lazy=True)
+    
+    #Dashboard Tickers
+    dt1 = db.Column(db.String(5), nullable=False, default='MSFT')
+    dt2 = db.Column(db.String(5), nullable=False, default='APPL')
+    dt3 = db.Column(db.String(5), nullable=False, default='TSLA')
+    dt4 = db.Column(db.String(5), nullable=False, default='GOOGL')
 
     def __repr__(self):      #How our object is printed, whenever we print it out
         return f"User('{self.username}', '{self.email}', '{self.image_file}')"

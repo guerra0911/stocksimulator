@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm                                         #Flask Add-On for Forms to Login/Register/Validate Accounts
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField                          #Class to define Usernames & Passwords
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FieldList                          #Class to define Usernames & Passwords
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError     #Validators/Checks to be accepted to form
 from tradingsim.models import User
 
@@ -57,5 +57,19 @@ class UpdateProfileForm(FlaskForm):      #Inherits from flask form
             user = User.query.filter_by(email=email.data).first()     #If query returns a value, it means username already exists in DB
             if user:
                 raise ValidationError('This Email is Taken. Choose Another.')
+            
+class UpdateStockDashboard(FlaskForm):
+    dt1 = StringField('Stock 1', validators=[DataRequired()])
+    dt2 = StringField('Stock 2', validators=[DataRequired()])
+    dt3 = StringField('Stock 3', validators=[DataRequired()])
+    dt4 = StringField('Stock 4', validators=[DataRequired()])
+
+    submit1 = SubmitField('Update')
+    submit2 = SubmitField('Update')
+    submit3 = SubmitField('Update')
+    submit4 = SubmitField('Update')
+
+    def validate_ticker(self, ticker):                              
+        pass
 
     

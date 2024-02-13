@@ -1,10 +1,89 @@
 {% extends "layout.html" %}
 {% block content %}
-    <h1>Home Page</h1>
-    {% for piece in dummyData%}
-        <h3>{{piece.username}}</h3>
-        <p>Balance = {{ piece.balance }}</p>
-        <p>Stocks Owned: {{piece.stocks}}</p>
-    {%endfor%}
+    <div class="container-fluid">
+        <h1>Dashboard</h1>
+        <form method="POST" action="" enctype="multipart/form-data">      <!-- Form Style, with Post Method, enc makes the error display readable and not crazy codes-->
+            {{ form.hidden_tag() }}             <!-- CSRF Token, Helps Protect from Attacks-->
+            <fieldset class="form-group">           <!-- Bootstrap Style Container-->
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">                                            <!-- Bootstrap Style Container -->
+                            {{ form.dt1.label(class="form-control-label") }}               <!-- Prints out Label of Dt1 Field, Bootstrap -->
+                            {% if form.dt1.errors %}                                               <!-- If Errors -->
+                                {{ form.dt1(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
+                                <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
+                                    {% for error in form.dt1.errors %}                             <!-- Iterate over Errors-->
+                                        <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.dt1(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.submit1(class="btn btn-outline-info") }}           
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">                                            <!-- Bootstrap Style Container-->
+                            {{ form.dt2.label(class="form-control-label") }}               <!-- Prints out Label of Dt1 Field, Bootstrap-->
+                            {% if form.dt2.errors %}                                               <!-- If Errors -->
+                                {{ form.dt2(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
+                                <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
+                                    {% for error in form.dt2.errors %}                             <!-- Iterate over Errors-->
+                                        <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.dt2(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.submit2(class="btn btn-outline-info") }}           
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">                                            <!-- Bootstrap Style Container-->
+                            {{ form.dt3.label(class="form-control-label") }}               <!-- Prints out Label of Dt1 Field, Bootstrap-->
+                            
+                            {% if form.dt3.errors %}                                               <!-- If Errors -->
+                                {{ form.dt3(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
+                                <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
+                                    {% for error in form.dt3.errors %}                             <!-- Iterate over Errors-->
+                                        <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.dt3(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.submit3(class="btn btn-outline-info") }}           
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">                                            <!-- Bootstrap Style Container-->
+                            {{ form.dt4.label(class="form-control-label") }}               <!-- Prints out Label of Dt1 Field, Bootstrap-->
+                            
+                            {% if form.dt4.errors %}                                               <!-- If Errors -->
+                                {{ form.dt4(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
+                                <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
+                                    {% for error in form.dt4.errors %}                             <!-- Iterate over Errors-->
+                                        <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                {{ form.dt4(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
+                            {% endif %}
+                        </div>
+                        <div class="form-group">
+                            {{ form.submit4(class="btn btn-outline-info") }}           
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </div>
 {% endblock content%}
-

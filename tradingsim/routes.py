@@ -4,25 +4,29 @@ from PIL import Image       #Image Resizing
 from flask import render_template, url_for, flash, redirect, request
 from tradingsim import app, db, bcrypt
 from tradingsim.models import User, Transaction
-from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm
+from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard
 from flask_login import login_user, logout_user, current_user, login_required
 
-dummyData = [
-    {'username': 'Nicholas Guerra',
-     'balance': '0',
-     'stocks': 'APPL, MSFT, DOW'
-    },
-    {'username': 'Kallista Bliss',
-     'balance': '100',
-     'stocks': 'TSLA, NASA'
-    }
-]
-
-@app.route("/")                     #Initial Directory
+@app.route("/", methods=['GET', 'POST'])                     #Initial Directory
+@login_required
 def home():
-    return render_template('home.html', dummyData=dummyData)   
+    form = UpdateStockDashboard()
+    if form.validate_on_submit(): 
+        current_user.dt1 = form.dt1.data
+        current_user.dt2 = form.dt2.data
+        current_user.dt3 = form.dt3.data
+        current_user.dt4 = form.dt4.data
+        db.session.commit()
+    elif request.method == 'GET':
+        form.dt1.data = current_user.dt1
+        form.dt2.data = current_user.dt2
+        form.dt3.data = current_user.dt3
+        form.dt4.data = current_user.dt4
+
+    return render_template('home.html', form=form)   
 
 @app.route("/portfolio")                #page directory at /portfolio
+@login_required
 def portfolio():
     return render_template('portfolio.html', title='Portfolio') 
 
