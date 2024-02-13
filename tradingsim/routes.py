@@ -2,10 +2,12 @@ import secrets  #           Encode file names
 import os                   #Keep file extensions (jpg, png)
 from PIL import Image       #Image Resizing
 from flask import render_template, url_for, flash, redirect, request
-from tradingsim import app, db, bcrypt
+from flask_socketio import emit
+from tradingsim import app, db, bcrypt, socketio
 from tradingsim.models import User, Transaction
 from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard
 from flask_login import login_user, logout_user, current_user, login_required
+import yfinance as yf
 
 @app.route("/", methods=['GET', 'POST'])                     #Initial Directory
 @login_required
@@ -25,10 +27,21 @@ def home():
 
     return render_template('home.html', form=form)   
 
+@socketio.on('connect')
+def test_connect():
+    emit('after connect',  {'data':'Lets dance'})
+
 @app.route("/portfolio")                #page directory at /portfolio
 @login_required
 def portfolio():
     return render_template('portfolio.html', title='Portfolio') 
+
+@socketio.on('get_stock_data')
+def get_stock_data(ticker):
+    stock = yf.Ticker(ticker)
+    data = stock.history(period="max", interval="1d")  # fetches daily data
+    emit('new_stock_data', {'ohlc': data['Close'].tolist(), 'time': data.index.strftime('%Y-%m-%d').tolist()})
+
 
 @app.route("/register", methods=['GET', 'POST'])                #Accepts POST & GET Methods, or else 405 Error, Method Not Allowed
 def register():
