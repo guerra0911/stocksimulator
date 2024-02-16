@@ -69,33 +69,42 @@ class UpdateStockDashboard(FlaskForm):
     submit2 = SubmitField('Update')
     submit3 = SubmitField('Update')
     submit4 = SubmitField('Update')
-
+        
     def is_valid_ticker(self, ticker_symbol):
+        print("In is_valid_ticker")
+        ticker = yf.Ticker(ticker_symbol)
         try:
-            # Attempt to get historical data, which should raise an error for an invalid ticker
-            ticker = yf.Ticker(ticker_symbol)
-            if 'regularMarketPrice' not in ticker.info or ticker.info['regularMarketPrice'] is None:
-                raise ValidationError("You did not input a correct stock ticker! Try again.")
+            info = ticker.info
+            if not info or 'quoteType' not in info:
+                print(f"Invalid ticker: {ticker_symbol}")  # Debug print
+                raise ValidationError("Invalid Stock Ticker!")
+            print(f"Valid ticker: {ticker_symbol}")  # Debug print
             return True
-        except ValueError:
-            return False
+        except Exception:
+            print("Exception for ticker: {ticker_symbol}")  # Debug print
+            raise ValidationError("Invalid Stock Ticker!")
 
 
     def validate_dt1(self, dt1):
-        if dt1.data != current_user.dt1 and not self.is_valid_ticker(dt1.data):     #Only call if it is changed
-            raise ValidationError('Invalid stock ticker!')
+        if dt1.data != current_user.dt1:     #Only call if it is changed
+            print(f"Validating dt1: {dt1.data}")  # Debug print
+            self.is_valid_ticker(dt1.data)
 
     def validate_dt2(self, dt2):
-        if dt2.data != current_user.dt2 and not self.is_valid_ticker(dt2.data):
-            raise ValidationError('Invalid stock ticker!')
+        if dt2.data != current_user.dt2:     #Only call if it is changed
+            print(f"Validating dt2: {dt2.data}")  # Debug print
+            self.is_valid_ticker(dt2.data)
 
     def validate_dt3(self, dt3):
-        if dt3.data != current_user.dt3 and not self.is_valid_ticker(dt3.data):
-            raise ValidationError('Invalid stock ticker!')
+        if dt3.data != current_user.dt3:     #Only call if it is changed
+            print(f"Validating dt3: {dt3.data}")  # Debug print
+            self.is_valid_ticker(dt3.data)
 
     def validate_dt4(self, dt4):
-        if dt4.data != current_user.dt4 and not self.is_valid_ticker(dt4.data):
-            raise ValidationError('Invalid stock ticker!')
+        if dt4.data != current_user.dt4:     #Only call if it is changed
+            print(f"Validating dt1: {dt4.data}")  # Debug print
+            self.is_valid_ticker(dt4.data)
+
 
 
 
