@@ -110,7 +110,13 @@
                     </div>
                 </div>
             </fieldset>
-            <script src="static/main.js"></script>
+            <script type="text/javascript">
+                var dt1 = "{{ dt1 }}";  // Accessing dt1 value passed from server-side
+                var dt2 = "{{ dt2 }}";  // Accessing dt1 value passed from server-side
+                var dt3 = "{{ dt3 }}";  // Accessing dt1 value passed from server-side
+                var dt4 = "{{ dt4 }}";  // Accessing dt1 value passed from server-side
+            </script>
+            <script src="{{ url_for('static', filename='main.js') }}"></script>
         </form>
     </div>
 {% endblock content%}

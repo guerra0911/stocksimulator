@@ -14,7 +14,7 @@ var layout = {
 var config = {responsive: true};
 
 socket.on('connect', function() {
-    socket.emit('get_stock_data', 'AAPL');  // replace 'AAPL' with your ticker
+    socket.emit('get_stock_data', dt1);  // replace 'AAPL' with your ticker
 });
 
 

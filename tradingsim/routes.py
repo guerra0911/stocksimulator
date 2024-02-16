@@ -25,7 +25,12 @@ def home():
         form.dt3.data = current_user.dt3
         form.dt4.data = current_user.dt4
 
-    return render_template('home.html', form=form)   
+    dt1 = current_user.dt1
+    dt2 = current_user.dt2
+    dt3 = current_user.dt3
+    dt4 = current_user.dt4
+
+    return render_template('home.html', form=form, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4)   
 
 @socketio.on('connect')
 def test_connect():
