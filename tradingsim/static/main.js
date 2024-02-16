@@ -13,34 +13,18 @@ var layout = {
 
 var config = {responsive: true};
 
-// socket.on('connect', function() {
-//     socket.emit('get_stock_data', dt1);  // replace 'AAPL' with your ticker
-// });
-
 socket.on('connect', function() {
     console.log('Connected')
-    socket.emit('get_stock_data', dt1, dt2, dt3, dt4);  // replace 'AAPL' with your ticker
+    for (var i = 1; i <= 4; i++) {
+        document.getElementById('spinner' + i).style.display = 'block';  // Show the spinners
+    }
+    socket.emit('get_stock_data', dt1, dt2, dt3, dt4); 
 });
 
-// socket.on('new_stock_data', function(data) {
-//     var trace = {
-//         x: data.time,
-//         y: data.ohlc,
-//         mode: 'lines',
-//         type: 'scattergl',
-//         line: {color: 'rgb(75, 192, 192)'}
-//     };
-//     Plotly.newPlot('chart1', [trace], layout, config);
-//     Plotly.newPlot('chart2', [trace], layout, config);
-//     Plotly.newPlot('chart3', [trace], layout, config);
-//     Plotly.newPlot('chart4', [trace], layout, config);
-// });
-
 socket.on('new_stock_data', function(data_list) {
-    // console.log(data_list)
     for (var i = 0; i < data_list.length; i++) {
+        document.getElementById('spinner' + (i + 1)).style.display = 'none';  // Hide the spinners
         var data = data_list[i];
-        // console.log(data_list[i])
         var trace = {
             x: data.time,
             y: data.ohlc,
@@ -51,6 +35,3 @@ socket.on('new_stock_data', function(data_list) {
         Plotly.newPlot('chart' + (i + 1), [trace], layout, config);
     }
 });
-
-
-

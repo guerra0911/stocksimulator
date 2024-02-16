@@ -6,7 +6,7 @@
             {{ form.hidden_tag() }}             <!-- CSRF Token, Helps Protect from Attacks-->
             <fieldset class="form-group">           <!-- Bootstrap Style Container-->
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-6 mb-4">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">                                            <!-- Bootstrap Style Container -->
@@ -28,6 +28,9 @@
                                     {{ form.submit1(class="btn btn-outline-info") }}           
                                 </div>
                             </div>
+                        </div>
+                        <div id="spinner1" style="display: none;">
+                            <div class="loader"></div>
                         </div>
                         <div id="chart1"></div>
                     </div>
@@ -53,6 +56,9 @@
                                     {{ form.submit2(class="btn btn-outline-info") }}           
                                 </div>
                             </div>
+                        </div>
+                        <div id="spinner2" style="display: none;">
+                            <div class="loader"></div>
                         </div>
                         <div id="chart2"></div>
                     </div>
@@ -81,6 +87,9 @@
                                 </div>
                             </div>
                         </div>
+                        <div id="spinner3" style="display: none;">
+                            <div class="loader"></div>
+                        </div>
                         <div id="chart3"></div>
                     </div>
                     <div class="col-md-6">
@@ -105,6 +114,9 @@
                                     {{ form.submit4(class="btn btn-outline-info") }}           
                                 </div>
                             </div>
+                        </div>
+                        <div id="spinner4" style="display: none;">
+                            <div class="loader"></div>
                         </div>
                         <div id="chart4"></div>
                     </div>

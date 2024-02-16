@@ -4,6 +4,7 @@ from flask_login import current_user
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, FieldList                          #Class to define Usernames & Passwords
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError     #Validators/Checks to be accepted to form
 from tradingsim.models import User
+import yfinance as yf
 
 class RegistrationForm(FlaskForm):      #Inherits from flask form
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])   
@@ -57,7 +58,7 @@ class UpdateProfileForm(FlaskForm):      #Inherits from flask form
             user = User.query.filter_by(email=email.data).first()     #If query returns a value, it means username already exists in DB
             if user:
                 raise ValidationError('This Email is Taken. Choose Another.')
-            
+         
 class UpdateStockDashboard(FlaskForm):
     dt1 = StringField('Stock 1', validators=[DataRequired()])
     dt2 = StringField('Stock 2', validators=[DataRequired()])
@@ -69,7 +70,35 @@ class UpdateStockDashboard(FlaskForm):
     submit3 = SubmitField('Update')
     submit4 = SubmitField('Update')
 
-    def validate_ticker(self, ticker):                              
-        pass
+    def is_valid_ticker(self, ticker_symbol):
+        try:
+            # Attempt to get historical data, which should raise an error for an invalid ticker
+            ticker = yf.Ticker(ticker_symbol)
+            if 'regularMarketPrice' not in ticker.info or ticker.info['regularMarketPrice'] is None:
+                raise ValidationError("You did not input a correct stock ticker! Try again.")
+            return True
+        except ValueError:
+            return False
+
+
+    def validate_dt1(self, dt1):
+        if dt1.data != current_user.dt1 and not self.is_valid_ticker(dt1.data):     #Only call if it is changed
+            raise ValidationError('Invalid stock ticker!')
+
+    def validate_dt2(self, dt2):
+        if dt2.data != current_user.dt2 and not self.is_valid_ticker(dt2.data):
+            raise ValidationError('Invalid stock ticker!')
+
+    def validate_dt3(self, dt3):
+        if dt3.data != current_user.dt3 and not self.is_valid_ticker(dt3.data):
+            raise ValidationError('Invalid stock ticker!')
+
+    def validate_dt4(self, dt4):
+        if dt4.data != current_user.dt4 and not self.is_valid_ticker(dt4.data):
+            raise ValidationError('Invalid stock ticker!')
+
+
+
+    
 
     
