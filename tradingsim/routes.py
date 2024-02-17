@@ -12,25 +12,65 @@ import yfinance as yf
 @app.route("/", methods=['GET', 'POST'])                     #Initial Directory
 @login_required
 def home():
-    form = UpdateStockDashboard()
-    if form.validate_on_submit(): 
+    form = UpdateStockDashboard()               #Update Form
+    if form.validate_on_submit():               #Only if Form is Valid, then update user variables to match form
         current_user.dt1 = form.dt1.data
         current_user.dt2 = form.dt2.data
         current_user.dt3 = form.dt3.data
         current_user.dt4 = form.dt4.data
         db.session.commit()
-    elif request.method == 'GET':
+    elif request.method == 'GET':               #Otherwise keep as the same variables
         form.dt1.data = current_user.dt1
         form.dt2.data = current_user.dt2
         form.dt3.data = current_user.dt3
         form.dt4.data = current_user.dt4
 
+    #Pass into HTML
     dt1 = current_user.dt1
     dt2 = current_user.dt2
     dt3 = current_user.dt3
     dt4 = current_user.dt4
 
-    return render_template('home.html', form=form, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4)   
+    #Get Live Price
+    dt1Ticker = yf.Ticker(dt1)
+    dt2Ticker = yf.Ticker(dt2)
+    dt3Ticker = yf.Ticker(dt3)
+    dt4Ticker = yf.Ticker(dt4)
+
+    data1 = dt1Ticker.history()
+    data2 = dt2Ticker.history()
+    data3 = dt3Ticker.history()
+    data4 = dt4Ticker.history()
+
+    dt1LastPrice = round(data1['Close'].iloc[-1], 2)
+    dt1SecondLastPrice = round(data1['Close'].iloc[-2], 2)
+    if dt1LastPrice >= dt1SecondLastPrice:
+        dt1Change = 1
+    else:
+        dt1Change = 0
+
+    dt2LastPrice = round(data2['Close'].iloc[-1], 2)
+    dt2SecondLastPrice = round(data2['Close'].iloc[-2], 2)
+    if dt2LastPrice >= dt2SecondLastPrice:
+        dt2Change = 1
+    else:
+        dt2Change = 0
+
+    dt3LastPrice = round(data3['Close'].iloc[-1], 2)
+    dt3SecondLastPrice = round(data3['Close'].iloc[-2], 2)
+    if dt3LastPrice >= dt3SecondLastPrice:
+        dt3Change = 1
+    else:
+        dt3Change = 0
+
+    dt4LastPrice = round(data4['Close'].iloc[-1], 2)
+    dt4SecondLastPrice = round(data4['Close'].iloc[-2], 2)
+    if dt4LastPrice > dt4SecondLastPrice:
+        dt4Change = 1
+    else:
+        dt4Change = 0
+
+    return render_template('home.html', form=form, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, dt1LastPrice=dt1LastPrice, dt2LastPrice=dt2LastPrice, dt3LastPrice=dt3LastPrice, dt4LastPrice=dt4LastPrice, dt1Change=dt1Change, dt2Change=dt2Change, dt3Change=dt3Change, dt4Change=dt4Change)   
 
 @socketio.on('connect')
 def test_connect():
