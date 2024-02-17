@@ -1,8 +1,8 @@
 from flask_wtf import FlaskForm                                         #Flask Add-On for Forms to Login/Register/Validate Accounts
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, FieldList                          #Class to define Usernames & Passwords
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError     #Validators/Checks to be accepted to form
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField                          #Class to define Usernames & Passwords
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange     #Validators/Checks to be accepted to form
 from tradingsim.models import User
 import yfinance as yf
 
@@ -106,8 +106,14 @@ class UpdateStockDashboard(FlaskForm):
             self.is_valid_ticker(dt4.data)
 
 
+class DepositForm(FlaskForm):
+    depositAmount = FloatField('Deposit', validators=[DataRequired(), NumberRange(min=0.01)])
+    submit = SubmitField('Deposit')
 
-
+class WithdrawForm(FlaskForm):
+    withdrawAmount = FloatField('Withdraw', validators=[DataRequired(), NumberRange(min=0.01)])
+    submit1 = SubmitField('Withdraw')
     
-
+class BuyForm(FlaskForm):
+    pass
     

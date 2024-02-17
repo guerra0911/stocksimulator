@@ -11,6 +11,7 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
+    balance = db.Column(db.Float, nullable=False, default=0)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(50), nullable=False, default = 'defaultProfilePic.jpg')

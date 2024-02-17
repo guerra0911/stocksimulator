@@ -8,51 +8,90 @@
             <p class="text-secondary">{{current_user.email}}</p>
         </div>
         </div>
-        <form method="POST" action="" enctype="multipart/form-data">      <!-- Form Style, with Post Method, enc makes the error display readable and not crazy codes-->
-            {{ form.hidden_tag() }}             <!-- CSRF Token, Helps Protect from Attacks-->
-            <fieldset class="form-group">           <!-- Bootstrap Style Container-->
-                <legend class="border-bottom mb-4">Account Info</legend>
-                <div class="form-group">                                            <!-- Bootstrap Style Container-->
-                    {{ form.username.label(class="form-control-label") }}               <!-- Prints out Label of Username Field, Bootstrap-->
-                    
-                    {% if form.username.errors %}                                               <!-- If Errors -->
-                        {{ form.username(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
-                        <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
-                            {% for error in form.username.errors %}                             <!-- Iterate over Errors-->
-                                <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
-                            {% endfor %}
+        <div class="row">
+            <div class="d-flex align-items-start">
+                <div class="col-md-7">
+                    <form method="POST" action="" enctype="multipart/form-data">      <!-- Form Style, with Post Method, enc makes the error display readable and not crazy codes-->
+                        {{ form.hidden_tag() }}             <!-- CSRF Token, Helps Protect from Attacks-->
+                        <fieldset class="form-group">           <!-- Bootstrap Style Container-->
+                            <legend class="border-bottom mb-4">Account Info</legend>
+                            <div class="form-group">                                            <!-- Bootstrap Style Container-->
+                                {{ form.username.label(class="form-control-label") }}               <!-- Prints out Label of Username Field, Bootstrap-->
+                                
+                                {% if form.username.errors %}                                               <!-- If Errors -->
+                                    {{ form.username(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
+                                    <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
+                                        {% for error in form.username.errors %}                             <!-- Iterate over Errors-->
+                                            <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.username(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
+                                {% endif %}
+                            </div>
+                            <div class="form-group">                                            
+                                {{ form.email.label(class="form-control-label") }}                  <!-- Prints out Label of Email Field, Bootstrap-->
+                                
+                                {% if form.email.errors %}                                               <!-- If Errors -->
+                                    {{ form.email(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
+                                    <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
+                                        {% for error in form.email.errors %}                                     <!-- Iterate over Errors-->
+                                            <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
+                                        {% endfor %}
+                                    </div>
+                                {% else %}
+                                    {{ form.email(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
+                                {% endif %}
+                            </div>
+                            <div class="form-group">                                            
+                                {{ form.profilePic.label() }}                       <!-- Prints out Label of Email Field, Bootstrap-->
+                                {{ form.profilePic(class="form-control-file") }}    <!-- Accept a File Field-->
+                                {% if form.profilePic.errors %}
+                                    {% for error in form.profilePic.errors %}                                     <!-- Iterate over Errors-->
+                                        <span class="text-danger">{{ error }}</span> </br>                                       <!-- Output all Errors Messages over a Span-->
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </fieldset>
+                        <div class="form-group">
+                            <input type="submit" name="Update Profile" value="Update Profile" class="btn btn-outline-info">
                         </div>
-                    {% else %}
-                        {{ form.username(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
-                    {% endif %}
+                    </form>
                 </div>
-                <div class="form-group">                                            
-                    {{ form.email.label(class="form-control-label") }}                  <!-- Prints out Label of Email Field, Bootstrap-->
-                    
-                    {% if form.email.errors %}                                               <!-- If Errors -->
-                        {{ form.email(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
-                        <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
-                            {% for error in form.email.errors %}                                     <!-- Iterate over Errors-->
-                                <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
-                            {% endfor %}
-                        </div>
-                    {% else %}
-                        {{ form.email(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
-                    {% endif %}
-                </div>
-                <div class="form-group">                                            
-                    {{ form.profilePic.label() }}                       <!-- Prints out Label of Email Field, Bootstrap-->
-                    {{ form.profilePic(class="form-control-file") }}    <!-- Accept a File Field-->
-                    {% if form.profilePic.errors %}
-                        {% for error in form.profilePic.errors %}                                     <!-- Iterate over Errors-->
-                            <span class="text-danger">{{ error }}</span> </br>                                       <!-- Output all Errors Messages over a Span-->
-                        {% endfor %}
-                    {% endif %}
-                </div>
-            </fieldset>
-            <div class="form-group">
-                {{ form.submit(class="btn btn-outline-info") }}           
-            </div>
-        </form>
+                <div class="col-md-1"></div>
+                <div class="col-md-4 d-flex flex-column justify-content-center">
+                    <div class="row mb-4">
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            <fieldset class="form-group">
+                                <legend class="border-bottom mb-4">Balance: ${{ '{:.2f}'.format(current_user.balance) }}</legend>
+                                {{ depositForm.hidden_tag() }}
+                                {{ depositForm.depositAmount.label }} {{ depositForm.depositAmount() }}
+                                {% for error in depositForm.depositAmount.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                                <div class="form-group">
+                                    <input type="submit" name="Deposit" value="Deposit" class="btn btn-outline-info" autocomplete="off">
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                    <div class="row">
+                        <form method="POST" action="" enctype="multipart/form-data">
+                            <fieldset class="form-group">
+                                {{ withdrawForm.hidden_tag() }}
+                                {{ withdrawForm.withdrawAmount.label }} {{ withdrawForm.withdrawAmount() }}
+                                {% for error in withdrawForm.withdrawAmount.errors %}
+                                    <span class="error">{{ error }}</span>
+                                {% endfor %}
+                                <div class="form-group">
+                                    <input type="submit" name="Withdraw" value="Withdraw" class="btn btn-outline-info" autocomplete="off">
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>   
+            </div>         
+        </div>
     </div>
 {% endblock content%}
+

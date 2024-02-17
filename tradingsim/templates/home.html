@@ -5,160 +5,247 @@
         <form method="POST" action="" enctype="multipart/form-data">      <!-- Form Style, with Post Method, enc makes the error display readable and not crazy codes-->
             {{ form.hidden_tag() }}             <!-- CSRF Token, Helps Protect from Attacks-->
             <fieldset class="form-group">           <!-- Bootstrap Style Container-->
-                <div class="row">
+                <div class="row justify-content-center">
                     <div class="col-md-6 mb-4">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">                                            <!-- Bootstrap Style Container -->
-                                    <!-- {{ form.dt1.label(class="form-control-label") }}               Prints out Label of Dt1 Field, Bootstrap -->
-                                    {% if form.dt1.errors %}                                               <!-- If Errors -->
-                                        {{ form.dt1(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
-                                        <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
-                                            {% for error in form.dt1.errors %}                             <!-- Iterate over Errors-->
-                                                <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
-                                            {% endfor %}
+                        <div class="card bg-white">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                            <h2 style="padding-left: 20px;">{{ dt1 }}</h2> <!-- Increase left padding -->
+                                            <h2 class="{% if dt1Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
+                                                {{ dt1LastPrice }}<!-- Display the ticker name & Price -->
+                                                {% if dt1Change == 1 %} 
+                                                    <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                                                {% else %} 
+                                                    <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                                                {% endif %}
+                                            </h2>
                                         </div>
-                                    {% else %}
-                                        {{ form.dt1(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
-                                    {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt1Modal">
+                                            <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="dt1Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Enter Stock Symbol</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            {% if form.dt1.errors %}
+                                                                {{ form.dt1(class="form-control is-invalid") }}
+                                                                <div class="invalid-feedback">
+                                                                    {% for error in form.dt1.errors %}
+                                                                        <span>{{ error }}</span>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            {% else %}
+                                                                {{ form.dt1(class="form-control") }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        {{ form.submit1(class="btn btn-outline-info") }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <h2 class="{% if dt1Change == 1 %}green{% else %}red{% endif %}">
-                                    {{ dt1LastPrice }}
-                                    {% if dt1Change == 1 %} 
-                                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
-                                    {% else %} 
-                                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
-                                    {% endif %}
-                                </h2>
-                            </div>                                     
-                            <div class="col-md-4">    
-                                <div class="form-group">
-                                    {{ form.submit1(class="btn btn-outline-info") }}           
+                                <div id="spinner1" style="display: none;">
+                                    <div class="loader"></div>
                                 </div>
+                                <div id="chart1"></div>
                             </div>
                         </div>
-                        <div id="spinner1" style="display: none;">
-                            <div class="loader"></div>
-                        </div>
-                        <div id="chart1"></div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">                                            <!-- Bootstrap Style Container -->
-                                    <!-- {{ form.dt2.label(class="form-control-label") }}               Prints out Label of Dt1 Field, Bootstrap -->
-                                    {% if form.dt2.errors %}                                               <!-- If Errors -->
-                                        {{ form.dt2(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
-                                        <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
-                                            {% for error in form.dt2.errors %}                             <!-- Iterate over Errors-->
-                                                <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
-                                            {% endfor %}
+                        <div class="card bg-white">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                            <h2 style="padding-left: 20px;">{{ dt2 }}</h2>
+                                            <h2 class="{% if dt2Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
+                                                {{ dt2LastPrice }}
+                                                {% if dt2Change == 1 %} 
+                                                    <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                                                {% else %} 
+                                                    <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                                                {% endif %}
+                                            </h2>
                                         </div>
-                                    {% else %}
-                                        {{ form.dt2(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
-                                    {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt2Modal">
+                                            <i class="fas fa-search"></i>
+                                        </button>
+                                        <div class="modal fade" id="dt2Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Enter Stock Symbol</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            {% if form.dt2.errors %}
+                                                                {{ form.dt2(class="form-control is-invalid") }}
+                                                                <div class="invalid-feedback">
+                                                                    {% for error in form.dt2.errors %}
+                                                                        <span>{{ error }}</span>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            {% else %}
+                                                                {{ form.dt2(class="form-control") }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        {{ form.submit2(class="btn btn-outline-info") }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <h2 class="{% if dt2Change == 1 %}green{% else %}red{% endif %}">
-                                    {{ dt2LastPrice }}
-                                    {% if dt2Change == 1 %} 
-                                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
-                                    {% else %} 
-                                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
-                                    {% endif %}
-                                </h2>
-                            </div> 
-                            <div class="col-md-4">    
-                                <div class="form-group">
-                                    {{ form.submit2(class="btn btn-outline-info") }}           
+                                <div id="spinner2" style="display: none;">
+                                    <div class="loader"></div>
                                 </div>
+                                <div id="chart2"></div>
                             </div>
                         </div>
-                        <div id="spinner2" style="display: none;">
-                            <div class="loader"></div>
-                        </div>
-                        <div id="chart2"></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">                                            <!-- Bootstrap Style Container -->
-                                    <!-- {{ form.dt3.label(class="form-control-label") }}               Prints out Label of Dt1 Field, Bootstrap -->
-                                    {% if form.dt3.errors %}                                               <!-- If Errors -->
-                                        {{ form.dt3(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
-                                        <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
-                                            {% for error in form.dt3.errors %}                             <!-- Iterate over Errors-->
-                                                <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
-                                            {% endfor %}
+                        <div class="card bg-white">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                            <h2 style="padding-left: 20px;">{{ dt3 }}</h2> <!-- Increase left padding -->
+                                            <h2 class="{% if dt3Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
+                                                {{ dt3LastPrice }}<!-- Display the ticker name & Price -->
+                                                {% if dt3Change == 1 %} 
+                                                    <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                                                {% else %} 
+                                                    <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                                                {% endif %}
+                                            </h2>
                                         </div>
-                                    {% else %}
-                                        {{ form.dt3(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
-                                    {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt3Modal">
+                                            <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="dt3Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Enter Stock Symbol</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            {% if form.dt3.errors %}
+                                                                {{ form.dt3(class="form-control is-invalid") }}
+                                                                <div class="invalid-feedback">
+                                                                    {% for error in form.dt3.errors %}
+                                                                        <span>{{ error }}</span>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            {% else %}
+                                                                {{ form.dt3(class="form-control") }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        {{ form.submit3(class="btn btn-outline-info") }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <h2 class="{% if dt3Change == 1 %}green{% else %}red{% endif %}">
-                                    {{ dt3LastPrice }}
-                                    {% if dt3Change == 1 %} 
-                                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
-                                    {% else %} 
-                                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
-                                    {% endif %}
-                                </h2>
-                            </div> 
-                            <div class="col-md-4">    
-                                <div class="form-group">
-                                    {{ form.submit3(class="btn btn-outline-info") }}           
+                                <div id="spinner3" style="display: none;">
+                                    <div class="loader"></div>
                                 </div>
+                                <div id="chart3"></div>
                             </div>
                         </div>
-                        <div id="spinner3" style="display: none;">
-                            <div class="loader"></div>
-                        </div>
-                        <div id="chart3"></div>
                     </div>
                     <div class="col-md-6">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">                                            <!-- Bootstrap Style Container -->
-                                    <!-- {{ form.dt1.label(class="form-control-label") }}               Prints out Label of Dt1 Field, Bootstrap -->
-                                    {% if form.dt4.errors %}                                               <!-- If Errors -->
-                                        {{ form.dt4(class="form-control form-control-lg is-invalid") }}    <!-- Prints out Label of Invalid Field, Bootstrap-->
-                                        <div class="invalid-feedback">                                          <!-- Bootstrap Style Class-->
-                                            {% for error in form.dt4.errors %}                             <!-- Iterate over Errors-->
-                                                <span>{{ error }}</span>                                        <!-- Output all Errors Messages over a Span-->
-                                            {% endfor %}
+                        <div class="card bg-white">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <div class="row">
+                                            <h2 style="padding-left: 20px;">{{ dt4 }}</h2> <!-- Increase left padding -->
+                                            <h2 class="{% if dt4Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
+                                                {{ dt4LastPrice }}<!-- Display the ticker name & Price -->
+                                                {% if dt4Change == 1 %} 
+                                                    <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                                                {% else %} 
+                                                    <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                                                {% endif %}
+                                            </h2>
                                         </div>
-                                    {% else %}
-                                        {{ form.dt4(class="form-control form-control-lg") }}     <!-- When No Errors (Initial State) show User Input of Username Field, Bootstrap-->
-                                    {% endif %}
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt4Modal">
+                                            <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
+                                        </button>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="dt4Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Enter Stock Symbol</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div class="form-group">
+                                                            {% if form.dt4.errors %}
+                                                                {{ form.dt4(class="form-control is-invalid") }}
+                                                                <div class="invalid-feedback">
+                                                                    {% for error in form.dt4.errors %}
+                                                                        <span>{{ error }}</span>
+                                                                    {% endfor %}
+                                                                </div>
+                                                            {% else %}
+                                                                {{ form.dt4(class="form-control") }}
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        {{ form.submit4(class="btn btn-outline-info") }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <h2 class="{% if dt3Change == 1 %}green{% else %}red{% endif %}">
-                                    {{ dt3LastPrice }}
-                                    {% if dt3Change == 1 %} 
-                                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
-                                    {% else %} 
-                                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
-                                    {% endif %}
-                                </h2>
-                            </div> 
-                            <div class="col-md-4">    
-                                <div class="form-group">
-                                    {{ form.submit4(class="btn btn-outline-info") }}           
+                                <div id="spinner4" style="display: none;">
+                                    <div class="loader"></div>
                                 </div>
+                                <div id="chart4"></div>
                             </div>
                         </div>
-                        <div id="spinner4" style="display: none;">
-                            <div class="loader"></div>
-                        </div>
-                        <div id="chart4"></div>
                     </div>
                 </div>
             </fieldset>

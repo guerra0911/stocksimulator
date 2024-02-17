@@ -5,7 +5,7 @@ from flask import render_template, url_for, flash, redirect, request
 from flask_socketio import emit
 from tradingsim import app, db, bcrypt, socketio
 from tradingsim.models import User, Transaction
-from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard
+from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard, DepositForm, WithdrawForm
 from flask_login import login_user, logout_user, current_user, login_required
 import yfinance as yf
 import pandas as pd
@@ -156,18 +156,38 @@ def save_picture(form_picture):                                 #Save picture fi
 @login_required
 def profile():
     form = UpdateProfileForm()
-    if form.validate_on_submit():                       #If update form is validated and passes checks
-        #If the User Changed their Picture
-        if form.profilePic.data:                                #If there is a picture change request
-            picture_file = save_picture(form.profilePic.data)   #Save the new photo the input into the form
-            current_user.image_file = picture_file              #Set the current users image_file attribute to the newly saved pic
-        current_user.username = form.username.data      #Change Username    
-        current_user.email = form.email.data            #Change Email
-        db.session.commit()                             #Change Database
-        flash('Your Account has Been Updated!', 'success')
-        return redirect(url_for('profile'))
-    elif request.method == 'GET':
-        form.username.data = current_user.username      #Fill form with Current Username before they change it
-        form.email.data = current_user.email            #Fill form with Current Email before they change it
+    depositForm = DepositForm()
+    withdrawForm = WithdrawForm()
+    if request.method == 'POST':
+        if 'Update Profile' in request.form:
+            if form.validate_on_submit():                       #If update form is validated and passes checks
+                #If the User Changed their Picture
+                if form.profilePic.data:                                #If there is a picture change request
+                    picture_file = save_picture(form.profilePic.data)   #Save the new photo the input into the form
+                    current_user.image_file = picture_file              #Set the current users image_file attribute to the newly saved pic
+                current_user.username = form.username.data      #Change Username    
+                current_user.email = form.email.data            #Change Email
+                db.session.commit()                             #Change Database
+                flash('Your Account has Been Updated!', 'success')
+                return redirect(url_for('profile'))
+            elif request.method == 'GET':
+                form.username.data = current_user.username      #Fill form with Current Username before they change it
+                form.email.data = current_user.email            #Fill form with Current Email before they change it
+        elif 'Deposit' in request.form:
+            if depositForm.validate_on_submit():
+                current_user.balance = current_user.balance + depositForm.depositAmount.data
+                db.session.commit()
+                flash(f"Successfully Deposited ${depositForm.depositAmount.data}", 'success')
+
+                depositForm.depositAmount.data = None
+        elif 'Withdraw' in request.form:
+            if withdrawForm.validate_on_submit():
+                if withdrawForm.withdrawAmount.data > current_user.balance:
+                    flash(f"Insufficient Funds!",'danger')
+                else:
+                    current_user.balance -= withdrawForm.withdrawAmount.data
+                    db.session.commit()
+                    withdrawForm.withdrawAmount.data = None
+                    flash(f"Successfully Withdrew ${withdrawForm.withdrawAmount.data}", 'success')
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
-    return render_template('profile.html',title='Profile', image_file=image_file, form=form)
+    return render_template('profile.html',title='Profile', image_file=image_file, form=form, depositForm=depositForm, withdrawForm=withdrawForm)
