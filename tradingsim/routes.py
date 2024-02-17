@@ -8,6 +8,7 @@ from tradingsim.models import User, Transaction
 from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard
 from flask_login import login_user, logout_user, current_user, login_required
 import yfinance as yf
+import pandas as pd
 
 @app.route("/", methods=['GET', 'POST'])                     #Initial Directory
 @login_required
@@ -90,7 +91,6 @@ def get_stock_data(dt1, dt2, dt3, dt4):
         stock = yf.Ticker(ticker)
         data = stock.history(period="max", interval="1d")  # fetches daily data
         data_list.append({'ohlc': data['Close'].tolist(), 'time': data.index.strftime('%Y-%m-%d').tolist()})
-
     emit('new_stock_data', data_list)
 
 @app.route("/register", methods=['GET', 'POST'])                #Accepts POST & GET Methods, or else 405 Error, Method Not Allowed

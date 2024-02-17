@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="container-fluid">
-        <h1>Dashboard</h1>
+        <h1>{{current_user.username}}'s Dashboard</h1>
         <form method="POST" action="" enctype="multipart/form-data">      <!-- Form Style, with Post Method, enc makes the error display readable and not crazy codes-->
             {{ form.hidden_tag() }}             <!-- CSRF Token, Helps Protect from Attacks-->
             <fieldset class="form-group">           <!-- Bootstrap Style Container-->
@@ -23,20 +23,21 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <h2 class="{% if dt1Change == 1 %}green{% else %}red{% endif %}">
+                                    {{ dt1LastPrice }}
+                                    {% if dt1Change == 1 %} 
+                                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                                    {% else %} 
+                                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                                    {% endif %}
+                                </h2>
+                            </div>                                     
                             <div class="col-md-4">    
                                 <div class="form-group">
                                     {{ form.submit1(class="btn btn-outline-info") }}           
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <h1>{{ dt1LastPrice }}
-                                {% if dt1Change == 1 %} 
-                                    <i class="fas fa-arrow-up" style="color:green;"></i> 
-                                {% else %} 
-                                    <i class="fas fa-arrow-down" style="color:red;"></i> 
-                                {% endif %}
-                            </h1>
                         </div>
                         <div id="spinner1" style="display: none;">
                             <div class="loader"></div>
@@ -60,20 +61,21 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <h2 class="{% if dt2Change == 1 %}green{% else %}red{% endif %}">
+                                    {{ dt2LastPrice }}
+                                    {% if dt2Change == 1 %} 
+                                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                                    {% else %} 
+                                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                                    {% endif %}
+                                </h2>
+                            </div> 
                             <div class="col-md-4">    
                                 <div class="form-group">
                                     {{ form.submit2(class="btn btn-outline-info") }}           
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <h1>{{ dt2LastPrice }}
-                                {% if dt2Change == 1 %} 
-                                    <i class="fas fa-arrow-up" style="color:green;"></i> 
-                                {% else %} 
-                                    <i class="fas fa-arrow-down" style="color:red;"></i> 
-                                {% endif %}
-                            </h1>
                         </div>
                         <div id="spinner2" style="display: none;">
                             <div class="loader"></div>
@@ -99,20 +101,21 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <h2 class="{% if dt3Change == 1 %}green{% else %}red{% endif %}">
+                                    {{ dt3LastPrice }}
+                                    {% if dt3Change == 1 %} 
+                                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                                    {% else %} 
+                                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                                    {% endif %}
+                                </h2>
+                            </div> 
                             <div class="col-md-4">    
                                 <div class="form-group">
                                     {{ form.submit3(class="btn btn-outline-info") }}           
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <h1>{{ dt3LastPrice }}
-                                {% if dt3Change == 1 %} 
-                                    <i class="fas fa-arrow-up" style="color:green;"></i> 
-                                {% else %} 
-                                    <i class="fas fa-arrow-down" style="color:red;"></i> 
-                                {% endif %}
-                            </h1>
                         </div>
                         <div id="spinner3" style="display: none;">
                             <div class="loader"></div>
@@ -136,20 +139,21 @@
                                     {% endif %}
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <h2 class="{% if dt3Change == 1 %}green{% else %}red{% endif %}">
+                                    {{ dt3LastPrice }}
+                                    {% if dt3Change == 1 %} 
+                                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                                    {% else %} 
+                                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                                    {% endif %}
+                                </h2>
+                            </div> 
                             <div class="col-md-4">    
                                 <div class="form-group">
                                     {{ form.submit4(class="btn btn-outline-info") }}           
                                 </div>
                             </div>
-                        </div>
-                        <div class="row">
-                            <h1>{{ dt4LastPrice }} 
-                                {% if dt4Change == 1 %} 
-                                    <i class="fas fa-arrow-up" style="color:green;"></i> 
-                                {% else %} 
-                                    <i class="fas fa-arrow-down" style="color:red;"></i> 
-                                {% endif %}
-                            </h1>
                         </div>
                         <div id="spinner4" style="display: none;">
                             <div class="loader"></div>

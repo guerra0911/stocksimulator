@@ -5,7 +5,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: #2ecc71; /* Bright green headings for a tech vibe */
+    color: #3498db; /* A vibrant and appealing blue */
 }
 
 .bg-steel {
@@ -23,6 +23,15 @@ h1, h2, h3, h4, h5, h6 {
 .site-header .navbar-nav .nav-link.active {
     font-weight: 500;
 }
+
+.green {
+    color: #2ecc71; /* A softer green shade */
+}
+
+.red {
+    color: #e74c3c; /* A muted red tone */
+}
+
 
 .content-section {
     background: #ffffff; /* White background for content sections */
