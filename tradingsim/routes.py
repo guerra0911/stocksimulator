@@ -191,3 +191,7 @@ def profile():
                     flash(f"Successfully Withdrew ${withdrawForm.withdrawAmount.data}", 'success')
     image_file = url_for('static', filename='profile_pics/' + current_user.image_file)
     return render_template('profile.html',title='Profile', image_file=image_file, form=form, depositForm=depositForm, withdrawForm=withdrawForm)
+
+@app.route("/stock/<string:ticker_name>")       #Get the post.id attribute when the post is clicked, send it here and route the user to a new page particular to the post based on its id. This is variable passed in, is dynamic
+def stock(ticker_name):                      #Needs post_id when passed in, in home.html. So when redirecting users here, you need to also include the passed in parameter post_id
+    return render_template('stock.html')    #Utilize that info in its html file

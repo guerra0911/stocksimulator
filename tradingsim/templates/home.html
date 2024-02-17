@@ -12,7 +12,7 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="row">
-                                            <h2 style="padding-left: 20px;">{{ dt1 }}</h2> <!-- Increase left padding -->
+                                            <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=dt1)}}">{{ dt1 }}</a></h2> <!-- Increase left padding -->
                                             <h2 class="{% if dt1Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
                                                 {{ dt1LastPrice }}<!-- Display the ticker name & Price -->
                                                 {% if dt1Change == 1 %} 
@@ -72,7 +72,7 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="row">
-                                            <h2 style="padding-left: 20px;">{{ dt2 }}</h2>
+                                            <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=dt2)}}">{{ dt2 }}</a></h2> <!-- Increase left padding -->
                                             <h2 class="{% if dt2Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
                                                 {{ dt2LastPrice }}
                                                 {% if dt2Change == 1 %} 
@@ -133,7 +133,7 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="row">
-                                            <h2 style="padding-left: 20px;">{{ dt3 }}</h2> <!-- Increase left padding -->
+                                            <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=dt3)}}">{{ dt3 }}</a></h2> <!-- Increase left padding -->
                                             <h2 class="{% if dt3Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
                                                 {{ dt3LastPrice }}<!-- Display the ticker name & Price -->
                                                 {% if dt3Change == 1 %} 
@@ -193,7 +193,7 @@
                                 <div class="row">
                                     <div class="col-md-10">
                                         <div class="row">
-                                            <h2 style="padding-left: 20px;">{{ dt4 }}</h2> <!-- Increase left padding -->
+                                            <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=dt4)}}">{{ dt4 }}</a></h2> <!-- Increase left padding -->
                                             <h2 class="{% if dt4Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
                                                 {{ dt4LastPrice }}<!-- Display the ticker name & Price -->
                                                 {% if dt4Change == 1 %} 

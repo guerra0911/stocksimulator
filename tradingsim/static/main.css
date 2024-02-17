@@ -43,12 +43,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .article-title {
-    color: #555555; /* Dark gray article titles */
+    color: #3498db; /* Dark gray article titles */
+    transition: all 0.3s ease; /* Smooth transition for hover effects */
 }
 
 a.article-title:hover {
-    color: #2ecc71; /* Bright green on hover */
-    text-decoration: none;
+    color: #346faa; /* Bright green on hover */
+    text-decoration: none; /* Remove underline on hover */
+    font-size: 100%; /* Increase font size on hover */
+    background-color: rgba(204, 199, 199, 0.1); /* Slightly transparent white background */
+    box-shadow: 0 0 10px rgba(177, 177, 238, 0.5); /* Dark blue shadow */
+    border-radius: 5px; /* Rounded corners */
+    padding: 2px; /* Some padding so the text isn't too close to the box edges */
 }
 
 .article-content {
