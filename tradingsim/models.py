@@ -1,5 +1,5 @@
 from tradingsim import db, login_manager
-import datetime
+from datetime import datetime
 from flask_login import UserMixin
 from sqlalchemy import ARRAY
 from sqlalchemy.ext.mutable import MutableList
@@ -16,7 +16,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(120), unique=True, nullable=False)
     image_file = db.Column(db.String(50), nullable=False, default = 'defaultProfilePic.jpg')
     password = db.Column(db.String(60), nullable=False)
-    transactions = db.relationship('Transaction', backref='author', lazy=True)
+    transactions = db.relationship('Transaction', backref='client', lazy=True)
     
     #Dashboard Tickers
     dt1 = db.Column(db.String(5), nullable=False, default='MSFT')
@@ -34,9 +34,8 @@ class Transaction(db.Model):
     type = db.Column(db.String(5), nullable=False)
     ticker = db.Column(db.String(5), nullable=False)
     numShares = db.Column(db.Integer, nullable=False)
-    price = db.Column(db.Double, nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.UTC)
-    content = db.Column(db.Text, nullable=False)
+    price = db.Column(db.Float, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
 
     def __repr__(self):      #How our object is printed, whenever we print it out
         return f"Transaction('{self.type}', '{self.ticker}', '{self.numShares}')"

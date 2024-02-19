@@ -5,10 +5,11 @@ from flask import render_template, url_for, flash, redirect, request
 from flask_socketio import emit
 from tradingsim import app, db, bcrypt, socketio
 from tradingsim.models import User, Transaction
-from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard, DepositForm, WithdrawForm
+from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard, DepositForm, WithdrawForm, BuyForm
 from flask_login import login_user, logout_user, current_user, login_required
 import yfinance as yf
 import pandas as pd
+from datetime import datetime
 
 @app.route("/", methods=['GET', 'POST'])                     #Initial Directory
 @login_required
@@ -31,6 +32,8 @@ def home():
     dt2 = current_user.dt2
     dt3 = current_user.dt3
     dt4 = current_user.dt4
+
+    print(f'dt1: {dt1}, dt2: {dt2}, dt3: {dt3}, dt4: {dt4}')
 
     #Get Live Price
     dt1Ticker = yf.Ticker(dt1)
@@ -71,8 +74,57 @@ def home():
     else:
         dt4Change = 0
 
-    return render_template('home.html', form=form, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, dt1LastPrice=dt1LastPrice, dt2LastPrice=dt2LastPrice, dt3LastPrice=dt3LastPrice, dt4LastPrice=dt4LastPrice, dt1Change=dt1Change, dt2Change=dt2Change, dt3Change=dt3Change, dt4Change=dt4Change)   
 
+    # Create BuyStockForm instances for each stock
+    buy_forms = {dt: BuyForm(prefix=dt, ticker=getattr(current_user, dt)) for dt in ['dt1', 'dt2', 'dt3', 'dt4']}
+    print(buy_forms.keys())
+
+    #Check if any of the buy forms have been submitted
+    for dt, buy_form in buy_forms.items():
+        if buy_form.validate_on_submit() and buy_form.submit.data:
+            if dt == 'dt1':
+                cost = dt1LastPrice * buy_form.numShares.data
+                if cost < current_user.balance:
+                    current_user.balance -= cost
+                    transaction = Transaction(client=current_user, type="Buy", ticker=dt1, numShares=buy_form.numShares.data, price=dt1LastPrice,date_posted=datetime.utcnow())
+                    db.session.add(transaction)
+                    db.session.commit()
+                    flash(f'Successful Transaction, {dt1} was purchased', 'success')
+                else:
+                    flash(f'Insufficient Funds, you only have {current_user.balance}', 'danger')
+            elif dt == 'dt2':
+                cost = dt2LastPrice * buy_form.numShares.data
+                if cost < current_user.balance:
+                    current_user.balance -= cost
+                    transaction = Transaction(client=current_user, type="Buy", ticker=dt2, numShares=buy_form.numShares.data, price=dt2LastPrice,date_posted=datetime.utcnow())
+                    db.session.add(transaction)
+                    db.session.commit()
+                    flash(f'Successful Transaction, {dt2} was purchased', 'success')
+                else:
+                    flash(f'Insufficient Funds, you only have {current_user.balance}', 'danger')
+            elif dt == 'dt3':
+                cost = dt3LastPrice * buy_form.numShares.data
+                if cost < current_user.balance:
+                    current_user.balance -= cost
+                    transaction = Transaction(client=current_user, type="Buy", ticker=dt3, numShares=buy_form.numShares.data, price=dt3LastPrice,date_posted=datetime.utcnow())
+                    db.session.add(transaction)
+                    db.session.commit()
+                    flash(f'Successful Transaction, {dt3} was purchased', 'success')
+                else:
+                    flash(f'Insufficient Funds, you only have {current_user.balance}', 'danger')
+            elif dt == 'dt4':
+                cost = dt4LastPrice * buy_form.numShares.data
+                if cost < current_user.balance:
+                    current_user.balance -= cost
+                    transaction = Transaction(client=current_user, type="Buy", ticker=dt4, numShares=buy_form.numShares.data, price=dt4LastPrice,date_posted=datetime.utcnow())
+                    db.session.add(transaction)
+                    db.session.commit()
+                    flash(f'Successful Transaction, {dt4} was purchased', 'success')
+                else:
+                    flash(f'Insufficient Funds, you only have {current_user.balance}', 'danger')
+
+    return render_template('home.html', form=form, buy_forms=buy_forms, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, dt1LastPrice=dt1LastPrice, dt2LastPrice=dt2LastPrice, dt3LastPrice=dt3LastPrice, dt4LastPrice=dt4LastPrice, dt1Change=dt1Change, dt2Change=dt2Change, dt3Change=dt3Change, dt4Change=dt4Change)
+    
 @socketio.on('connect')
 def test_connect():
     emit('after connect',  {'data':'Lets dance'})

@@ -10,7 +10,7 @@
                         <div class="card bg-white">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-8">
                                         <div class="row">
                                             <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=dt1)}}">{{ dt1 }}</a></h2> <!-- Increase left padding -->
                                             <h2 class="{% if dt1Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
@@ -23,7 +23,45 @@
                                             </h2>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1.5">
+                                        <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt1BuyModal">
+                                            Buy
+                                        </button>
+                                        
+                                        <!-- The Modal -->
+                                        <div class="modal" id="dt1BuyModal">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                        
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Buy Stock</h4>
+                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                </div>
+                                        
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                <form method="POST">
+                                                    {{ buy_forms['dt1'].hidden_tag() }}
+                                                    {{ buy_forms['dt1'].ticker() }}
+                                                    {{ buy_forms['dt1'].numShares.label }} {{ buy_forms['dt1'].numShares() }}
+                                                    {{ buy_forms['dt1'].submit() }}
+                                                </form>
+                                                </div>
+                                        
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                        
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1.5"></div>
+                                    <div class="col-md-1">
                                         <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt1Modal">
                                             <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
                                         </button>
@@ -70,7 +108,7 @@
                         <div class="card bg-white">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-8">
                                         <div class="row">
                                             <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=dt2)}}">{{ dt2 }}</a></h2> <!-- Increase left padding -->
                                             <h2 class="{% if dt2Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
@@ -83,7 +121,45 @@
                                             </h2>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1.5">
+                                        <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt2BuyModal">
+                                            Buy
+                                        </button>
+                                        
+                                        <!-- The Modal -->
+                                        <div class="modal" id="dt2BuyModal">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                        
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Buy Stock</h4>
+                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                </div>
+                                        
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                <form method="POST">
+                                                    {{ buy_forms['dt2'].hidden_tag() }}
+                                                    {{ buy_forms['dt2'].ticker() }}
+                                                    {{ buy_forms['dt2'].numShares.label }} {{ buy_forms['dt2'].numShares() }}
+                                                    {{ buy_forms['dt2'].submit() }}
+                                                </form>
+                                                </div>
+                                        
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                        
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1.5"></div>
+                                    <div class="col-md-1">
                                         <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt2Modal">
                                             <i class="fas fa-search"></i>
                                         </button>
@@ -131,7 +207,7 @@
                         <div class="card bg-white">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-8">
                                         <div class="row">
                                             <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=dt3)}}">{{ dt3 }}</a></h2> <!-- Increase left padding -->
                                             <h2 class="{% if dt3Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
@@ -144,7 +220,45 @@
                                             </h2>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1.5">
+                                        <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt3BuyModal">
+                                            Buy
+                                        </button>
+                                        
+                                        <!-- The Modal -->
+                                        <div class="modal" id="dt3BuyModal">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                        
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Buy Stock</h4>
+                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                </div>
+                                        
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                <form method="POST">
+                                                    {{ buy_forms['dt3'].hidden_tag() }}
+                                                    {{ buy_forms['dt3'].ticker() }}
+                                                    {{ buy_forms['dt3'].numShares.label }} {{ buy_forms['dt3'].numShares() }}
+                                                    {{ buy_forms['dt3'].submit() }}
+                                                </form>
+                                                </div>
+                                        
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                        
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1.5"></div>
+                                    <div class="col-md-1">
                                         <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt3Modal">
                                             <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
                                         </button>
@@ -191,7 +305,7 @@
                         <div class="card bg-white">
                             <div class="card-body">
                                 <div class="row">
-                                    <div class="col-md-10">
+                                    <div class="col-md-8">
                                         <div class="row">
                                             <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=dt4)}}">{{ dt4 }}</a></h2> <!-- Increase left padding -->
                                             <h2 class="{% if dt4Change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
@@ -204,7 +318,45 @@
                                             </h2>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-1.5">
+                                        <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt4BuyModal">
+                                            Buy
+                                        </button>
+                                        
+                                        <!-- The Modal -->
+                                        <div class="modal" id="dt4BuyModal">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                        
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Buy Stock</h4>
+                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                </div>
+                                        
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                <form method="POST">
+                                                    {{ buy_forms['dt4'].hidden_tag() }}
+                                                    {{ buy_forms['dt4'].ticker() }}
+                                                    {{ buy_forms['dt4'].numShares.label }} {{ buy_forms['dt4'].numShares() }}
+                                                    {{ buy_forms['dt4'].submit() }}
+                                                </form>
+                                                </div>
+                                        
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                        
+                                            </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1.5"></div>
+                                    <div class="col-md-1">
                                         <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt4Modal">
                                             <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
                                         </button>

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm                                         #Flask Add-On for Forms to Login/Register/Validate Accounts
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField                          #Class to define Usernames & Passwords
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, FloatField, IntegerField, HiddenField                          #Class to define Usernames & Passwords
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange     #Validators/Checks to be accepted to form
 from tradingsim.models import User
 import yfinance as yf
@@ -112,8 +112,9 @@ class DepositForm(FlaskForm):
 
 class WithdrawForm(FlaskForm):
     withdrawAmount = FloatField('Withdraw', validators=[DataRequired(), NumberRange(min=0.01)])
-    submit1 = SubmitField('Withdraw')
+    submit = SubmitField('Withdraw')
     
 class BuyForm(FlaskForm):
-    pass
-    
+    ticker = HiddenField('Ticker')
+    numShares = IntegerField('Number of Shares', validators=[DataRequired(), NumberRange(min=1)])
+    submit = SubmitField('Buy')
