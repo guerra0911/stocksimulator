@@ -3,7 +3,6 @@
     <div class="container-fluid">
         <h1>{{current_user.username}}'s Dashboard</h1>
         <form method="POST" action="" enctype="multipart/form-data">      <!-- Form Style, with Post Method, enc makes the error display readable and not crazy codes-->
-            {{ form.hidden_tag() }}             <!-- CSRF Token, Helps Protect from Attacks-->
             <fieldset class="form-group">           <!-- Bootstrap Style Container-->
                 <div class="row justify-content-center">
                     <div class="col-md-6 mb-4">
@@ -62,40 +61,40 @@
                                     </div>
                                     <div class="col-md-1.5"></div>
                                     <div class="col-md-1">
-                                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt1Modal">
-                                            <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
+                                        <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt1UpdateModal">
+                                            <i class="fas fa-search"></i>
                                         </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="dt1Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Enter Stock Symbol</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            {% if form.dt1.errors %}
-                                                                {{ form.dt1(class="form-control is-invalid") }}
-                                                                <div class="invalid-feedback">
-                                                                    {% for error in form.dt1.errors %}
-                                                                        <span>{{ error }}</span>
-                                                                    {% endfor %}
-                                                                </div>
-                                                            {% else %}
-                                                                {{ form.dt1(class="form-control") }}
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        {{ form.submit1(class="btn btn-outline-info") }}
-                                                    </div>
+                                        
+                                        <!-- The Modal -->
+                                        <div class="modal" id="dt1UpdateModal">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                        
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Update Dashboard</h4>
+                                                <button type="button" class="close" data-dismiss="modal">×</button>
                                                 </div>
+                                        
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                <form method="POST">
+                                                    {{ update_forms['dt1'].hidden_tag() }}
+                                                    {{ update_forms['dt1'].tickerToUpdate.label }} {{ update_forms['dt1'].tickerToUpdate() }}
+                                                    {{ update_forms['dt1'].submit() }}
+                                                </form>
+                                                </div>
+                                        
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                        
+                                            </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                   
                                 </div>
                                 <div id="spinner1" style="display: none;">
                                     <div class="loader"></div>
@@ -160,39 +159,40 @@
                                     </div>
                                     <div class="col-md-1.5"></div>
                                     <div class="col-md-1">
-                                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt2Modal">
+                                        <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt2UpdateModal">
                                             <i class="fas fa-search"></i>
                                         </button>
-                                        <div class="modal fade" id="dt2Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Enter Stock Symbol</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            {% if form.dt2.errors %}
-                                                                {{ form.dt2(class="form-control is-invalid") }}
-                                                                <div class="invalid-feedback">
-                                                                    {% for error in form.dt2.errors %}
-                                                                        <span>{{ error }}</span>
-                                                                    {% endfor %}
-                                                                </div>
-                                                            {% else %}
-                                                                {{ form.dt2(class="form-control") }}
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        {{ form.submit2(class="btn btn-outline-info") }}
-                                                    </div>
+                                        
+                                        <!-- The Modal -->
+                                        <div class="modal" id="dt2UpdateModal">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                        
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Update Dashboard</h4>
+                                                <button type="button" class="close" data-dismiss="modal">×</button>
                                                 </div>
+                                        
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                <form method="POST">
+                                                    {{ update_forms['dt2'].hidden_tag() }}
+                                                    {{ update_forms['dt2'].tickerToUpdate.label }} {{ update_forms['dt2'].tickerToUpdate() }}
+                                                    {{ update_forms['dt2'].submit() }}
+                                                </form>
+                                                </div>
+                                        
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                        
+                                            </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                   
                                 </div>
                                 <div id="spinner2" style="display: none;">
                                     <div class="loader"></div>
@@ -259,40 +259,40 @@
                                     </div>
                                     <div class="col-md-1.5"></div>
                                     <div class="col-md-1">
-                                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt3Modal">
-                                            <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
+                                        <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt3UpdateModal">
+                                            <i class="fas fa-search"></i>
                                         </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="dt3Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Enter Stock Symbol</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            {% if form.dt3.errors %}
-                                                                {{ form.dt3(class="form-control is-invalid") }}
-                                                                <div class="invalid-feedback">
-                                                                    {% for error in form.dt3.errors %}
-                                                                        <span>{{ error }}</span>
-                                                                    {% endfor %}
-                                                                </div>
-                                                            {% else %}
-                                                                {{ form.dt3(class="form-control") }}
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        {{ form.submit3(class="btn btn-outline-info") }}
-                                                    </div>
+                                        
+                                        <!-- The Modal -->
+                                        <div class="modal" id="dt3UpdateModal">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                        
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Update Dashboard</h4>
+                                                <button type="button" class="close" data-dismiss="modal">×</button>
                                                 </div>
+                                        
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                <form method="POST">
+                                                    {{ update_forms['dt3'].hidden_tag() }}
+                                                    {{ update_forms['dt3'].tickerToUpdate.label }} {{ update_forms['dt3'].tickerToUpdate() }}
+                                                    {{ update_forms['dt3'].submit() }}
+                                                </form>
+                                                </div>
+                                        
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                        
+                                            </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                                 <div id="spinner3" style="display: none;">
                                     <div class="loader"></div>
@@ -357,40 +357,40 @@
                                     </div>
                                     <div class="col-md-1.5"></div>
                                     <div class="col-md-1">
-                                        <button type="button" class="btn btn-outline-info" data-toggle="modal" data-target="#dt4Modal">
-                                            <i class="fas fa-search"></i> <!-- Magnifying glass icon -->
+                                        <!-- Button to Open the Modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt4UpdateModal">
+                                            <i class="fas fa-search"></i>
                                         </button>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="dt4Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Enter Stock Symbol</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <div class="form-group">
-                                                            {% if form.dt4.errors %}
-                                                                {{ form.dt4(class="form-control is-invalid") }}
-                                                                <div class="invalid-feedback">
-                                                                    {% for error in form.dt4.errors %}
-                                                                        <span>{{ error }}</span>
-                                                                    {% endfor %}
-                                                                </div>
-                                                            {% else %}
-                                                                {{ form.dt4(class="form-control") }}
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        {{ form.submit4(class="btn btn-outline-info") }}
-                                                    </div>
+                                        
+                                        <!-- The Modal -->
+                                        <div class="modal" id="dt4UpdateModal">
+                                            <div class="modal-dialog">
+                                            <div class="modal-content">
+                                        
+                                                <!-- Modal Header -->
+                                                <div class="modal-header">
+                                                <h4 class="modal-title">Update Dashboard</h4>
+                                                <button type="button" class="close" data-dismiss="modal">×</button>
                                                 </div>
+                                        
+                                                <!-- Modal Body -->
+                                                <div class="modal-body">
+                                                <form method="POST">
+                                                    {{ update_forms['dt4'].hidden_tag() }}
+                                                    {{ update_forms['dt4'].tickerToUpdate.label }} {{ update_forms['dt4'].tickerToUpdate() }}
+                                                    {{ update_forms['dt4'].submit() }}
+                                                </form>
+                                                </div>
+                                        
+                                                <!-- Modal Footer -->
+                                                <div class="modal-footer">
+                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                </div>
+                                        
+                                            </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
                                 <div id="spinner4" style="display: none;">
                                     <div class="loader"></div>

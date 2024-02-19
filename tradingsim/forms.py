@@ -60,51 +60,22 @@ class UpdateProfileForm(FlaskForm):      #Inherits from flask form
                 raise ValidationError('This Email is Taken. Choose Another.')
          
 class UpdateStockDashboard(FlaskForm):
-    dt1 = StringField('Stock 1', validators=[DataRequired()])
-    dt2 = StringField('Stock 2', validators=[DataRequired()])
-    dt3 = StringField('Stock 3', validators=[DataRequired()])
-    dt4 = StringField('Stock 4', validators=[DataRequired()])
+    tickerToUpdate = StringField('Stock', validators=[DataRequired()])
+    submit = SubmitField('Update')
 
-    submit1 = SubmitField('Update')
-    submit2 = SubmitField('Update')
-    submit3 = SubmitField('Update')
-    submit4 = SubmitField('Update')
-        
-    def is_valid_ticker(self, ticker_symbol):
+    def validate_tickerToUpdate(self, tickerToUpdate):
         print("In is_valid_ticker")
-        ticker = yf.Ticker(ticker_symbol)
+        ticker = yf.Ticker(tickerToUpdate.data)
         try:
             info = ticker.info
             if not info or 'quoteType' not in info:
-                print(f"Invalid ticker: {ticker_symbol}")  # Debug print
+                print(f"Invalid ticker: {tickerToUpdate.data}")  # Debug print
                 raise ValidationError("Invalid Stock Ticker!")
-            print(f"Valid ticker: {ticker_symbol}")  # Debug print
+            print(f"Valid ticker: {tickerToUpdate.data}")  # Debug print
             return True
         except Exception:
-            print("Exception for ticker: {ticker_symbol}")  # Debug print
+            print(f"Exception for ticker: {tickerToUpdate.data}")  # Debug print
             raise ValidationError("Invalid Stock Ticker!")
-
-
-    def validate_dt1(self, dt1):
-        if dt1.data != current_user.dt1:     #Only call if it is changed
-            print(f"Validating dt1: {dt1.data}")  # Debug print
-            self.is_valid_ticker(dt1.data)
-
-    def validate_dt2(self, dt2):
-        if dt2.data != current_user.dt2:     #Only call if it is changed
-            print(f"Validating dt2: {dt2.data}")  # Debug print
-            self.is_valid_ticker(dt2.data)
-
-    def validate_dt3(self, dt3):
-        if dt3.data != current_user.dt3:     #Only call if it is changed
-            print(f"Validating dt3: {dt3.data}")  # Debug print
-            self.is_valid_ticker(dt3.data)
-
-    def validate_dt4(self, dt4):
-        if dt4.data != current_user.dt4:     #Only call if it is changed
-            print(f"Validating dt1: {dt4.data}")  # Debug print
-            self.is_valid_ticker(dt4.data)
-
 
 class DepositForm(FlaskForm):
     depositAmount = FloatField('Deposit', validators=[DataRequired(), NumberRange(min=0.01)])

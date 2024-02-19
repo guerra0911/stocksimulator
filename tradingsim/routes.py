@@ -14,19 +14,6 @@ from datetime import datetime
 @app.route("/", methods=['GET', 'POST'])                     #Initial Directory
 @login_required
 def home():
-    form = UpdateStockDashboard()               #Update Form
-    if form.validate_on_submit():               #Only if Form is Valid, then update user variables to match form
-        current_user.dt1 = form.dt1.data
-        current_user.dt2 = form.dt2.data
-        current_user.dt3 = form.dt3.data
-        current_user.dt4 = form.dt4.data
-        db.session.commit()
-    elif request.method == 'GET':               #Otherwise keep as the same variables
-        form.dt1.data = current_user.dt1
-        form.dt2.data = current_user.dt2
-        form.dt3.data = current_user.dt3
-        form.dt4.data = current_user.dt4
-
     #Pass into HTML
     dt1 = current_user.dt1
     dt2 = current_user.dt2
@@ -34,6 +21,34 @@ def home():
     dt4 = current_user.dt4
 
     print(f'dt1: {dt1}, dt2: {dt2}, dt3: {dt3}, dt4: {dt4}')
+
+    # Create BuyStockForm instances for each stock
+    update_forms = {dt: UpdateStockDashboard(prefix=dt) for dt in ['dt1', 'dt2', 'dt3', 'dt4']}
+    print(update_forms.keys())
+
+    #Check if any of the buy forms have been submitted
+    for dt, update_form in update_forms.items():
+        if update_form.validate_on_submit() and update_form.submit.data:
+            if dt == 'dt1':
+                current_user.dt1 = update_form.tickerToUpdate.data
+                dt1 = update_form.tickerToUpdate.data
+                db.session.commit()
+                flash(f'Added {dt1} to your Dashboard', 'success')
+            elif dt == 'dt2':
+                current_user.dt2 = update_form.tickerToUpdate.data
+                dt2 = update_form.tickerToUpdate.data
+                db.session.commit()
+                flash(f'Added {dt2} to your Dashboard', 'success')
+            elif dt == 'dt3':
+                current_user.dt3 = update_form.tickerToUpdate.data
+                dt3 = update_form.tickerToUpdate.data
+                db.session.commit()
+                flash(f'Added {dt3} to your Dashboard', 'success')
+            elif dt == 'dt4':
+                current_user.dt4 = update_form.tickerToUpdate.data
+                dt4 = update_form.tickerToUpdate.data
+                db.session.commit()
+                flash(f'Added {dt4} to your Dashboard', 'success')
 
     #Get Live Price
     dt1Ticker = yf.Ticker(dt1)
@@ -74,7 +89,6 @@ def home():
     else:
         dt4Change = 0
 
-
     # Create BuyStockForm instances for each stock
     buy_forms = {dt: BuyForm(prefix=dt, ticker=getattr(current_user, dt)) for dt in ['dt1', 'dt2', 'dt3', 'dt4']}
     print(buy_forms.keys())
@@ -91,7 +105,7 @@ def home():
                     db.session.commit()
                     flash(f'Successful Transaction, {dt1} was purchased', 'success')
                 else:
-                    flash(f'Insufficient Funds, you only have {current_user.balance}', 'danger')
+                    flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
             elif dt == 'dt2':
                 cost = dt2LastPrice * buy_form.numShares.data
                 if cost < current_user.balance:
@@ -101,7 +115,7 @@ def home():
                     db.session.commit()
                     flash(f'Successful Transaction, {dt2} was purchased', 'success')
                 else:
-                    flash(f'Insufficient Funds, you only have {current_user.balance}', 'danger')
+                    flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
             elif dt == 'dt3':
                 cost = dt3LastPrice * buy_form.numShares.data
                 if cost < current_user.balance:
@@ -111,7 +125,7 @@ def home():
                     db.session.commit()
                     flash(f'Successful Transaction, {dt3} was purchased', 'success')
                 else:
-                    flash(f'Insufficient Funds, you only have {current_user.balance}', 'danger')
+                    flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
             elif dt == 'dt4':
                 cost = dt4LastPrice * buy_form.numShares.data
                 if cost < current_user.balance:
@@ -121,9 +135,9 @@ def home():
                     db.session.commit()
                     flash(f'Successful Transaction, {dt4} was purchased', 'success')
                 else:
-                    flash(f'Insufficient Funds, you only have {current_user.balance}', 'danger')
+                    flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
 
-    return render_template('home.html', form=form, buy_forms=buy_forms, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, dt1LastPrice=dt1LastPrice, dt2LastPrice=dt2LastPrice, dt3LastPrice=dt3LastPrice, dt4LastPrice=dt4LastPrice, dt1Change=dt1Change, dt2Change=dt2Change, dt3Change=dt3Change, dt4Change=dt4Change)
+    return render_template('home.html', update_forms=update_forms, buy_forms=buy_forms, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, dt1LastPrice=dt1LastPrice, dt2LastPrice=dt2LastPrice, dt3LastPrice=dt3LastPrice, dt4LastPrice=dt4LastPrice, dt1Change=dt1Change, dt2Change=dt2Change, dt3Change=dt3Change, dt4Change=dt4Change)
     
 @socketio.on('connect')
 def test_connect():
