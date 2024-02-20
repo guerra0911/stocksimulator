@@ -4,8 +4,38 @@ body {
     margin-top: 4rem;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1 {
     color: #3498db; /* A vibrant and appealing blue */
+    /* Add other styles for h1 here */
+}
+
+h2 {
+    color: #3498db; /* A vibrant and appealing blue */
+    /* Add other styles for h2 here */
+}
+
+h3 {
+    color: #3498db; /* A vibrant and appealing blue */
+    /* Add other styles for h3 here */
+}
+
+h4 {
+    color: #3498db; /* A vibrant and appealing blue */
+    /* Add other styles for h4 here */
+}
+
+h5 {
+    color: #000000; /* A vibrant and appealing blue */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    /* Add other styles for h5 here */
+}
+
+h6 {
+    color: #404142; /* A vibrant and appealing blue */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+    /* Add other styles for h6 here */
 }
 
 .bg-steel {
@@ -32,6 +62,25 @@ h1, h2, h3, h4, h5, h6 {
     color: #e74c3c; /* A muted red tone */
 }
 
+.main-screen {
+    text-align: center;
+    padding: 20px;
+}
+
+.profile img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.total-value {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.stock-value, .balance {
+    font-size: 1.5em;
+}
 
 .content-section {
     background: #ffffff; /* White background for content sections */
@@ -41,6 +90,20 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 3px;
     margin-bottom: 20px;
 }
+
+.no-indent {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+.no-bottom-margin {
+    margin-bottom: 0 !important;
+}
+
+.no-top-margin {
+    margin-top: 0 !important;
+}
+
 
 .article-title {
     color: #3498db; /* Dark gray article titles */
@@ -105,6 +168,62 @@ a.article-title:hover {
     height: 120px;
     -webkit-animation: spin 2s linear infinite; /* Safari */
     animation: spin 2s linear infinite;
+}
+
+/* Style the table */
+/* Make the table header sticky */
+.sticky-header th {
+    position: sticky;
+    top: 0;
+    background-color: #3498db;
+    color: white;
+    z-index: 999; /* Add a z-index */
+}
+
+/* Make the table scrollable */
+.scrollable-table {
+    width: 100%;
+}
+
+.scrollable-table .sticky-header {
+    overflow-y: auto;
+    height: 300px;  /* Adjust as needed */
+    text-align: center;
+}
+
+table {
+    width: 100%; /* Full-width */
+    border-collapse: collapse; /* Collapse borders */
+    margin: 15px 0; /* Add margin */
+    margin-bottom: 100px;
+}
+
+/* Style the table header */
+table th {
+    position: sticky;
+    top: 0;
+    background-color: #3498db; /* Blue background */
+    color: white; /* White text */
+    text-align: center; /* Left-align text */
+    padding: 10px; /* Add padding */
+    z-index: 999; /* Add a z-index */
+}
+
+/* Style the table cells */
+table td {
+    border-bottom: 1px solid #dddddd; /* Add a bottom border */
+    padding: 10px; /* Add padding */
+    text-align: center;
+}
+
+/* Style the table body */
+table tbody {
+    transform: translateZ(0);
+}
+
+/* Highlight every even row (optional) */
+table tr:nth-child(even) {
+    background-color: #f8f8f8;
 }
 
 /* Safari */

@@ -1,4 +1,122 @@
 {% extends "layout.html" %}
 {% block content %}
-
+<!-- In the stock.html template, display the data using Bootstrap tables and other components -->
+<div class="container">
+    <h1>{{ stock_name }}</h1>
+    <h2>Last Price: ${{ stock_lastPrice }}</h2>
+    <div id="spinner" style="display: none;">
+        <div class="loader"></div>
+    </div>
+    <div id="chart"></div>
+    <h3>Income Statement</h3>
+    <!-- Use a table component from Bootstrap -->
+    <table class="table table-striped">
+        <!-- Use a for loop to iterate over the columns and rows of the income statement -->
+        <thead>
+            <tr>
+                {% for col in stock_income.columns %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stock_income.index %}
+            <tr>
+                <td>{{ row }}</td>
+                {% for col in stock_income.columns %}
+                <td>{{ stock_income.loc[row, col] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!-- Repeat the same process for the balance sheet, cash flow statement, major holders, and mutual fund holders -->
+    <h3>Balance Sheet</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                {% for col in stock_balance.columns %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stock_balance.index %}
+            <tr>
+                <td>{{ row }}</td>
+                {% for col in stock_balance.columns %}
+                <td>{{ stock_balance.loc[row, col] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Cash Flow Statement</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                {% for col in stock_cashflow.columns %}
+                <th>{{ col }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stock_cashflow.index %}
+            <tr>
+                <td>{{ row }}</td>
+                {% for col in stock_cashflow.columns %}
+                <td>{{ stock_cashflow.loc[row, col] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Major Holders</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Holder</th>
+                <th>Shares</th>
+                <th>Date Reported</th>
+                <th>Outstanding</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stock_major_holders.index %}
+            <tr>
+                {% for col in stock_major_holders.columns %}
+                <td>{{ stock_major_holders.loc[row, col] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <h3>Mutual Fund Holders</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Holder</th>
+                <th>Shares</th>
+                <th>Date Reported</th>
+                <th>Outstanding</th>
+                <th>Value</th>
+                <th>Change</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in stock_mutual_fund_holders.index %}
+            <tr>
+                {% for col in stock_mutual_fund_holders.columns %}
+                <td>{{ stock_mutual_fund_holders.loc[row, col] }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<script type="text/javascript">
+    var ind_stock = "{{ ind_stock }}";  // Accessing ind_stock value passed from server-side
+</script>
+<script src="{{ url_for('static', filename='stock.js') }}"></script>
 {% endblock content%}

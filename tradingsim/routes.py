@@ -20,7 +20,63 @@ def home():
     dt3 = current_user.dt3
     dt4 = current_user.dt4
 
-    print(f'dt1: {dt1}, dt2: {dt2}, dt3: {dt3}, dt4: {dt4}')
+    userTransactions = db.session.query(Transaction.type, Transaction.ticker, Transaction.numShares, Transaction.price, Transaction.date_posted).\
+        filter(Transaction.userid == current_user.id).all()
+    
+    # Format the date and time for each row
+    formatted_userTransactions = []
+    for transaction in userTransactions:
+        formatted_userTransaction = {
+            'type': transaction.type,
+            'ticker': transaction.ticker,
+            'numShares': transaction.numShares,
+            'price': transaction.price,
+            'date_posted': transaction.date_posted.strftime('%B %d, %Y, %H:%M:%S')  # Include time
+        }
+        formatted_userTransactions.append(formatted_userTransaction)
+
+    # Sort transactions by date in descending order
+    formatted_userTransactions.sort(key=lambda x: x['date_posted'], reverse=True)
+
+    # Create a dictionary to store the data for each stock
+    user_stocks = {}
+
+    # Process each transaction
+    for transaction in formatted_userTransactions:
+        ticker = transaction['ticker']
+        numShares = transaction['numShares']
+        price = transaction['price']
+
+        # If this is the first transaction for this stock, initialize the data
+        if ticker not in user_stocks:
+            user_stocks[ticker] = {'numShares': 0, 'totalValue': 0}
+
+        # Update the number of shares and total value
+        if transaction['type'] == 'Buy':
+            user_stocks[ticker]['numShares'] += numShares
+            user_stocks[ticker]['totalValue'] += numShares * price
+        elif transaction['type'] == 'Sell':
+            user_stocks[ticker]['numShares'] -= numShares
+            user_stocks[ticker]['totalValue'] -= numShares * price
+
+    # Calculate the current value for each stock
+    for ticker in user_stocks:
+        stock = yf.Ticker(ticker)
+        stock_history = stock.history()
+        current_price = round(stock_history['Close'].iloc[-1], 2)
+        user_stocks[ticker]['currentValue'] = user_stocks[ticker]['numShares'] * current_price
+
+    # Calculate the total current value of all stocks
+    total_current_value = sum(stock['currentValue'] for stock in user_stocks.values()) + current_user.balance
+
+    # Calculate the total value from stocks
+    total_stock_value = sum(stock['currentValue'] for stock in user_stocks.values())
+
+    # Calculate the percent increase
+    if total_stock_value != 0:
+        percent_increase = ((total_current_value - total_stock_value) / total_stock_value) * 100
+    else:
+        percent_increase = 0
 
     # Create BuyStockForm instances for each stock
     update_forms = {dt: UpdateStockDashboard(prefix=dt) for dt in ['dt1', 'dt2', 'dt3', 'dt4']}
@@ -34,21 +90,25 @@ def home():
                 dt1 = update_form.tickerToUpdate.data
                 db.session.commit()
                 flash(f'Added {dt1} to your Dashboard', 'success')
+                return redirect(url_for('home'))
             elif dt == 'dt2':
                 current_user.dt2 = update_form.tickerToUpdate.data
                 dt2 = update_form.tickerToUpdate.data
                 db.session.commit()
                 flash(f'Added {dt2} to your Dashboard', 'success')
+                return redirect(url_for('home'))
             elif dt == 'dt3':
                 current_user.dt3 = update_form.tickerToUpdate.data
                 dt3 = update_form.tickerToUpdate.data
                 db.session.commit()
                 flash(f'Added {dt3} to your Dashboard', 'success')
+                return redirect(url_for('home'))
             elif dt == 'dt4':
                 current_user.dt4 = update_form.tickerToUpdate.data
                 dt4 = update_form.tickerToUpdate.data
                 db.session.commit()
                 flash(f'Added {dt4} to your Dashboard', 'success')
+                return redirect(url_for('home'))
 
     #Get Live Price
     dt1Ticker = yf.Ticker(dt1)
@@ -104,8 +164,10 @@ def home():
                     db.session.add(transaction)
                     db.session.commit()
                     flash(f'Successful Transaction, {dt1} was purchased', 'success')
+                    return redirect(url_for('home'))
                 else:
                     flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
+                    return redirect(url_for('home'))
             elif dt == 'dt2':
                 cost = dt2LastPrice * buy_form.numShares.data
                 if cost < current_user.balance:
@@ -114,8 +176,10 @@ def home():
                     db.session.add(transaction)
                     db.session.commit()
                     flash(f'Successful Transaction, {dt2} was purchased', 'success')
+                    return redirect(url_for('home'))
                 else:
                     flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
+                    return redirect(url_for('home'))
             elif dt == 'dt3':
                 cost = dt3LastPrice * buy_form.numShares.data
                 if cost < current_user.balance:
@@ -124,8 +188,10 @@ def home():
                     db.session.add(transaction)
                     db.session.commit()
                     flash(f'Successful Transaction, {dt3} was purchased', 'success')
+                    return redirect(url_for('home'))
                 else:
                     flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
+                    return redirect(url_for('home'))
             elif dt == 'dt4':
                 cost = dt4LastPrice * buy_form.numShares.data
                 if cost < current_user.balance:
@@ -134,10 +200,17 @@ def home():
                     db.session.add(transaction)
                     db.session.commit()
                     flash(f'Successful Transaction, {dt4} was purchased', 'success')
+                    return redirect(url_for('home'))
                 else:
                     flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
+                    return redirect(url_for('home'))
+                
+    return render_template('home.html', update_forms=update_forms, buy_forms=buy_forms, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, 
+                           dt1LastPrice=dt1LastPrice, dt2LastPrice=dt2LastPrice, dt3LastPrice=dt3LastPrice, dt4LastPrice=dt4LastPrice, 
+                           dt1Change=dt1Change, dt2Change=dt2Change, dt3Change=dt3Change, dt4Change=dt4Change, 
+                           userTransactions=formatted_userTransactions, user_stocks=user_stocks, 
+                           total_current_value=total_current_value, total_stock_value=total_stock_value, percent_increase=percent_increase)
 
-    return render_template('home.html', update_forms=update_forms, buy_forms=buy_forms, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, dt1LastPrice=dt1LastPrice, dt2LastPrice=dt2LastPrice, dt3LastPrice=dt3LastPrice, dt4LastPrice=dt4LastPrice, dt1Change=dt1Change, dt2Change=dt2Change, dt3Change=dt3Change, dt4Change=dt4Change)
     
 @socketio.on('connect')
 def test_connect():
@@ -259,5 +332,33 @@ def profile():
     return render_template('profile.html',title='Profile', image_file=image_file, form=form, depositForm=depositForm, withdrawForm=withdrawForm)
 
 @app.route("/stock/<string:ticker_name>")       #Get the post.id attribute when the post is clicked, send it here and route the user to a new page particular to the post based on its id. This is variable passed in, is dynamic
-def stock(ticker_name):                      #Needs post_id when passed in, in home.html. So when redirecting users here, you need to also include the passed in parameter post_id
-    return render_template('stock.html')    #Utilize that info in its html file
+def stock(ticker_name):                      #Needs post_id when passed in, in home.html. So when redirecting users here, you need to also include the passed in parameter post_id                    
+    # Create an object from the ticker_name
+    stock = yf.Ticker(ticker_name)
+    # Get the stock history
+    stock_history = stock.history()
+    # Get the last price
+    stock_lastPrice = round(stock_history['Close'].iloc[-1], 2)
+    # Get the income statement
+    stock_income = stock.financials
+    # Get the balance sheet
+    stock_balance = stock.balance_sheet
+    # Get the cash flow statement
+    stock_cashflow = stock.cashflow
+    # Get the major holders
+    stock_major_holders = stock.major_holders
+    # Get the mutual fund holders
+    stock_mutual_fund_holders = stock.mutualfund_holders
+    # Get the stock name
+    stock_name = stock.info['longName']
+    # Pass the data to the stock.html template
+    return render_template('stock.html', ind_stock=ticker_name, stock_lastPrice=stock_lastPrice, stock_income=stock_income, stock_balance=stock_balance, stock_cashflow=stock_cashflow, stock_major_holders=stock_major_holders, stock_mutual_fund_holders=stock_mutual_fund_holders, stock_name=stock_name)
+
+@socketio.on('get_ind_stock_data')
+def get_ind_stock_data(ind_stock):
+    # No need to use a list for one stock
+    stock = yf.Ticker(ind_stock)
+    data = stock.history(period="max", interval="1d")  # fetches daily data
+    # No need to use a list for one data
+    data_dict = {'ohlc': data['Close'].tolist(), 'time': data.index.strftime('%Y-%m-%d').tolist()}
+    emit('new_ind_stock_data', data_dict)

@@ -11,16 +11,16 @@ def load_user(user_id):
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
-    balance = db.Column(db.Float, nullable=False, default=0)
+    balance = db.Column(db.Float, nullable=False, default=25000)
     username = db.Column(db.String(20), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    image_file = db.Column(db.String(50), nullable=False, default = 'defaultProfilePic.jpg')
+    image_file = db.Column(db.String(50), nullable=False, default = 'default.jpg')
     password = db.Column(db.String(60), nullable=False)
     transactions = db.relationship('Transaction', backref='client', lazy=True)
     
     #Dashboard Tickers
     dt1 = db.Column(db.String(5), nullable=False, default='MSFT')
-    dt2 = db.Column(db.String(5), nullable=False, default='APPL')
+    dt2 = db.Column(db.String(5), nullable=False, default='AAPL')
     dt3 = db.Column(db.String(5), nullable=False, default='TSLA')
     dt4 = db.Column(db.String(5), nullable=False, default='GOOGL')
 

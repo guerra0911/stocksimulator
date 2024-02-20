@@ -89,3 +89,8 @@ class BuyForm(FlaskForm):
     ticker = HiddenField('Ticker')
     numShares = IntegerField('Number of Shares', validators=[DataRequired(), NumberRange(min=1)])
     submit = SubmitField('Buy')
+
+class SellForm(FlaskForm):
+    ticker = HiddenField('Ticker')
+    numShares = IntegerField('Number of Shares', validators=[DataRequired(), NumberRange(min=1)])
+    submit = SubmitField('Sell')

@@ -1,7 +1,87 @@
 {% extends "layout.html" %}
 {% block content %}
     <div class="container-fluid">
-        <h1>{{current_user.username}}'s Dashboard</h1>
+        <div class="main-screen">
+            <div class="profile">
+                <img src="{{ url_for('static', filename='profile_pics/' + current_user.image_file) }}" alt="Profile Picture">
+                <h2>{{ current_user.username }}</h2>
+            </div>
+            <div class="total-value">
+                <h1>${{ '{:.2f}'.format(total_current_value) }}</h1>
+                <p class="{{ 'green' if percent_increase >= 0 else 'red' }}">
+                    {{ '+' if percent_increase >= 0 else '-' }}${{ '{:.2f}'.format(percent_increase|abs) }}%
+                </p>
+            </div>
+            <div class="stock-value">
+                <h3>Stock Value: ${{ '{:.2f}'.format(total_stock_value) }}</h3>
+            </div>
+            <div class="balance">
+                <h3>Balance: ${{ '{:.2f}'.format(current_user.balance) }}</h3>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="scrollable-table">
+                <div class="sticky-header">
+                    <table>
+                        <tr>
+                            <th>Ticker</th>
+                            <th>Number of Shares</th>
+                            <th>Total Value</th>
+                            <th>Current Value</th>
+                            <th>+- $</th>
+                            <th>+- %</th>
+                        </tr>
+                        {% for ticker, data in user_stocks.items() %}
+                        <tr>
+                            <td><a class="article-title" href="{{url_for('stock', ticker_name=ticker)}}">{{ ticker }}</a></td>
+                            <td>{{ data.numShares }}</td>
+                            <td>${{ '{:.2f}'.format( data.totalValue )}}</td>
+                            <td>${{ '{:.2f}'.format(data.currentValue )}}</td>
+                            <td>
+                                {% set value_change = data.currentValue - data.totalValue %}
+                                <span class="{{ 'green' if value_change >= 0 else 'red' }}">
+                                    {{ '+' if value_change >= 0 else '-' }}${{ '{:.2f}'.format(value_change|abs) }}
+                                </span>
+                            </td>
+                            <td>
+                                {% set percent_change = value_change / data.totalValue * 100 %}
+                                <span class="{{ 'green' if percent_change >= 0 else 'red' }}">
+                                    {{ '+' if value_change >= 0 else '-' }}${{ '{:.2f}'.format(value_change|abs) }}
+                                </span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    
+                </div>
+            </div>
+        </div>
+        <div style="height: 50px;"></div>
+        <div class="row">
+            <div class="scrollable-table">
+                <div class="sticky-header">
+                    <table>
+                        <tr>
+                            <th>Type</th>
+                            <th>Ticker</th>
+                            <th>Number of Shares</th>
+                            <th>Price</th>
+                            <th>Date Posted</th>
+                        </tr>
+                        {% for transaction in userTransactions %}
+                        <tr>
+                            <td>{{ transaction.type }}</td>
+                            <td><a class="article-title" href="{{url_for('stock', ticker_name=transaction.ticker)}}">{{ transaction.ticker }}</a></td>
+                            <td>{{ transaction.numShares }}</td>
+                            <td>${{ '{:.2f}'.format(transaction.price) }}</td>
+                            <td>{{ transaction.date_posted }}</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div style="height: 50px;"></div>
         <form method="POST" action="" enctype="multipart/form-data">      <!-- Form Style, with Post Method, enc makes the error display readable and not crazy codes-->
             <fieldset class="form-group">           <!-- Bootstrap Style Container-->
                 <div class="row justify-content-center">
@@ -36,8 +116,14 @@
                                         
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
-                                                <h4 class="modal-title">Buy Stock</h4>
-                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    <div class="d-flex flex-column align-items-start">  
+                                                        <h4 class="modal-title mb-2">Buy {{dt1}} at ${{dt1LastPrice}}</h4>
+                                                        <h5>Current Balance = ${{ '{:.2f}'.format(current_user.balance) }}</h5>
+                                                        <h6>
+                                                            Maximum Affordability = {{ (current_user.balance // dt1LastPrice)|round|int }} Shares
+                                                        </h6>
+                                                    </div>
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
                                                 </div>
                                         
                                                 <!-- Modal Body -->
@@ -134,8 +220,14 @@
                                         
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
-                                                <h4 class="modal-title">Buy Stock</h4>
-                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    <div class="d-flex flex-column align-items-start">  
+                                                        <h4 class="modal-title mb-2">Buy {{dt2}} at ${{dt2LastPrice}}</h4>
+                                                        <h5>Current Balance = ${{ '{:.2f}'.format(current_user.balance) }}</h5>
+                                                        <h6>
+                                                            Maximum Affordability = {{ (current_user.balance // dt2LastPrice)|round|int }} Shares
+                                                        </h6>
+                                                    </div>
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
                                                 </div>
                                         
                                                 <!-- Modal Body -->
@@ -234,8 +326,14 @@
                                         
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
-                                                <h4 class="modal-title">Buy Stock</h4>
-                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    <div class="d-flex flex-column align-items-start">  
+                                                        <h4 class="modal-title mb-2">Buy {{dt3}} at ${{dt3LastPrice}}</h4>
+                                                        <h5>Current Balance = ${{ '{:.2f}'.format(current_user.balance) }}</h5>
+                                                        <h6>
+                                                            Maximum Affordability = {{ (current_user.balance // dt3LastPrice)|round|int }} Shares
+                                                        </h6>
+                                                    </div>
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
                                                 </div>
                                         
                                                 <!-- Modal Body -->
@@ -332,8 +430,14 @@
                                         
                                                 <!-- Modal Header -->
                                                 <div class="modal-header">
-                                                <h4 class="modal-title">Buy Stock</h4>
-                                                <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    <div class="d-flex flex-column align-items-start">  
+                                                        <h4 class="modal-title mb-2">Buy {{dt4}} at ${{dt4LastPrice}}</h4>
+                                                        <h5>Current Balance = ${{ '{:.2f}'.format(current_user.balance) }}</h5>
+                                                        <h6>
+                                                            Maximum Affordability = {{ (current_user.balance // dt4LastPrice)|round|int }} Shares
+                                                        </h6>
+                                                    </div>
+                                                    <button type="button" class="close" data-dismiss="modal">×</button>
                                                 </div>
                                         
                                                 <!-- Modal Body -->

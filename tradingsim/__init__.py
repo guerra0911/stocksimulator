@@ -15,5 +15,6 @@ bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 login_manager.login_message_category = 'info'       #Bootstrap Information Alert Style
+app.jinja_env.filters['abs'] = abs
 
 from tradingsim import routes       #Avod Circular Import Loop
