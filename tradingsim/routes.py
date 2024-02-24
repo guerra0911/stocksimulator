@@ -5,7 +5,7 @@ from flask import render_template, url_for, flash, redirect, request
 from flask_socketio import emit
 from tradingsim import app, db, bcrypt, socketio
 from tradingsim.models import User, Transaction
-from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard, DepositForm, WithdrawForm, BuyForm
+from tradingsim.forms import RegistrationForm, LoginForm, UpdateProfileForm, UpdateStockDashboard, DepositForm, WithdrawForm, BuyForm, SellForm
 from flask_login import login_user, logout_user, current_user, login_required
 import yfinance as yf
 import pandas as pd
@@ -49,15 +49,15 @@ def home():
 
         # If this is the first transaction for this stock, initialize the data
         if ticker not in user_stocks:
-            user_stocks[ticker] = {'numShares': 0, 'totalValue': 0}
+            user_stocks[ticker] = {'numShares': 0, 'totalPurchasedValue': 0}
 
         # Update the number of shares and total value
         if transaction['type'] == 'Buy':
             user_stocks[ticker]['numShares'] += numShares
-            user_stocks[ticker]['totalValue'] += numShares * price
+            user_stocks[ticker]['totalPurchasedValue'] += numShares * price
         elif transaction['type'] == 'Sell':
             user_stocks[ticker]['numShares'] -= numShares
-            user_stocks[ticker]['totalValue'] -= numShares * price
+            user_stocks[ticker]['totalPurchasedValue'] -= numShares * price
 
     # Calculate the current value for each stock
     for ticker in user_stocks:
@@ -66,15 +66,18 @@ def home():
         current_price = round(stock_history['Close'].iloc[-1], 2)
         user_stocks[ticker]['currentValue'] = user_stocks[ticker]['numShares'] * current_price
 
+    #Calculcate the total Purchased Value of all Stocks
+    total_purchased_value = sum(stock['totalPurchasedValue'] for stock in user_stocks.values())
+
     # Calculate the total current value of all stocks
-    total_current_value = sum(stock['currentValue'] for stock in user_stocks.values()) + current_user.balance
+    total_account_value = sum(stock['currentValue'] for stock in user_stocks.values()) + current_user.balance
 
     # Calculate the total value from stocks
-    total_stock_value = sum(stock['currentValue'] for stock in user_stocks.values())
+    total_current_value = sum(stock['currentValue'] for stock in user_stocks.values())
 
     # Calculate the percent increase
-    if total_stock_value != 0:
-        percent_increase = ((total_current_value - total_stock_value) / total_stock_value) * 100
+    if total_current_value != 0:
+        percent_increase = ((total_current_value - total_purchased_value) / total_current_value) * 100
     else:
         percent_increase = 0
 
@@ -205,11 +208,104 @@ def home():
                     flash(f'Insufficient Funds, you only have ${format(current_user.balance, ".2f")}', 'danger')
                     return redirect(url_for('home'))
                 
-    return render_template('home.html', update_forms=update_forms, buy_forms=buy_forms, dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, 
+    # Create SellStockForm instances for each stock
+    sell_forms = {dt: SellForm(prefix=dt, sellTicker=getattr(current_user, dt)) for dt in ['dt1', 'dt2', 'dt3', 'dt4']}
+    print(sell_forms.keys())
+    for key, form in sell_forms.items():
+        print(f"Variable Name: {key}, Form Instance: {form}")
+
+    
+    try:
+        dt1NumShares = user_stocks[dt1]['numShares']
+    except:
+        dt1NumShares = 0
+    try:
+        dt2NumShares = user_stocks[dt2]['numShares']
+    except:
+        dt2NumShares = 0
+    try:
+        dt3NumShares = user_stocks[dt3]['numShares']
+    except:
+        dt3NumShares = 0
+    try:
+        dt4NumShares = user_stocks[dt4]['numShares']
+    except:
+        dt4NumShares = 0
+
+    for dt, sell_form in sell_forms.items():
+        print(dt)
+        print("\n")
+        print("CHECKING FORM\n")
+        print(sell_form.sellNumShares.data)
+        if(sell_form.validate_on_submit()):
+            print("VALIDATED FIRST CHECK \n")
+        if sell_form.validate_on_submit() and sell_form.sellSubmit.data:
+            print("FORM VALIDATED\n")
+            if dt == 'dt1':
+                print("IN DT1\n")
+                revenue = dt1LastPrice * sell_form.sellNumShares.data
+                if dt1 in user_stocks and sell_form.sellNumShares.data <= dt1NumShares:
+                    current_user.balance += revenue
+                    transaction = Transaction(client=current_user, type="Sell", ticker=dt1, numShares=sell_form.sellNumShares.data, price=dt1LastPrice,date_posted=datetime.utcnow())
+                    db.session.add(transaction)
+                    db.session.commit()
+                    flash(f'Successful Transaction, {dt1} was sold', 'success')
+                    return redirect(url_for('home'))
+                else:
+                    flash(f"Insufficient Shares, you only have {dt1NumShares} Shares", 'danger')
+                    return redirect(url_for('home'))
+            elif dt == 'dt2':
+                print("IN DT2\n")
+                revenue = dt2LastPrice * sell_form.sellNumShares.data
+                if dt2 in user_stocks and sell_form.sellNumShares.data <= dt2NumShares:
+                    current_user.balance += revenue
+                    transaction = Transaction(client=current_user, type="Sell", ticker=dt2, numShares=sell_form.sellNumShares.data, price=dt2LastPrice,date_posted=datetime.utcnow())
+                    db.session.add(transaction)
+                    db.session.commit()
+                    flash(f'Successful Transaction, {dt2} was sold', 'success')
+                    return redirect(url_for('home'))
+                else:
+                    flash(f"Insufficient Shares, you only have {dt2NumShares} Shares", 'danger')
+                    return redirect(url_for('home'))
+            elif dt == 'dt3':
+                print("IN DT3\n")
+                revenue = dt3LastPrice * sell_form.sellNumShares.data
+                if dt3 in user_stocks and sell_form.sellNumShares.data <= dt3NumShares:
+                    current_user.balance += revenue
+                    transaction = Transaction(client=current_user, type="Sell", ticker=dt3, numShares=sell_form.sellNumShares.data, price=dt3LastPrice,date_posted=datetime.utcnow())
+                    db.session.add(transaction)
+                    db.session.commit()
+                    flash(f'Successful Transaction, {dt3} was sold', 'success')
+                    return redirect(url_for('home'))
+                else:
+                    flash(f"Insufficient Shares, you only have {dt3NumShares} Shares", 'danger')
+                    return redirect(url_for('home'))
+            elif dt == 'dt4':
+                print("IN DT4\n")
+                revenue = dt4LastPrice * sell_form.sellNumShares.data
+                if dt4 in user_stocks and sell_form.sellNumShares.data <= dt4NumShares:
+                    current_user.balance += revenue
+                    transaction = Transaction(client=current_user, type="Sell", ticker=dt4, numShares=sell_form.sellNumShares.data, price=dt4LastPrice,date_posted=datetime.utcnow())
+                    db.session.add(transaction)
+                    db.session.commit()
+                    flash(f'Successful Transaction, {dt4} was sold', 'success')
+                    return redirect(url_for('home'))
+                else:
+                    flash(f"Insufficient Shares, you only have {dt4NumShares} Shares", 'danger')
+                    return redirect(url_for('home'))
+        else:
+            print("FORM DATA: ", sell_form.data)  # print form data
+            print("FORM ERRORS: ", sell_form.errors)  # print form errors    
+
+    return render_template('home.html', 
+                           dt1=dt1, dt2=dt2, dt3=dt3, dt4=dt4, 
+                           update_forms=update_forms, buy_forms=buy_forms, sell_forms=sell_forms,
                            dt1LastPrice=dt1LastPrice, dt2LastPrice=dt2LastPrice, dt3LastPrice=dt3LastPrice, dt4LastPrice=dt4LastPrice, 
                            dt1Change=dt1Change, dt2Change=dt2Change, dt3Change=dt3Change, dt4Change=dt4Change, 
-                           userTransactions=formatted_userTransactions, user_stocks=user_stocks, 
-                           total_current_value=total_current_value, total_stock_value=total_stock_value, percent_increase=percent_increase)
+                           dt1NumShares=dt1NumShares, dt2NumShares=dt2NumShares, dt3NumShares=dt3NumShares, dt4NumShares=dt4NumShares,
+                           userTransactions=formatted_userTransactions, 
+                           user_stocks=user_stocks, 
+                           total_current_value=total_current_value, total_account_value=total_account_value, total_purchased_value=total_purchased_value, percent_increase=percent_increase)
 
     
 @socketio.on('connect')
@@ -339,6 +435,10 @@ def stock(ticker_name):                      #Needs post_id when passed in, in h
     stock_history = stock.history()
     # Get the last price
     stock_lastPrice = round(stock_history['Close'].iloc[-1], 2)
+    # Get the second last price
+    stock_second_lastPrice = round(stock_history['Close'].iloc[-2], 2)
+    # Get the change in price
+    stock_change = stock_second_lastPrice - stock_lastPrice
     # Get the income statement
     stock_income = stock.financials
     # Get the balance sheet
@@ -352,7 +452,7 @@ def stock(ticker_name):                      #Needs post_id when passed in, in h
     # Get the stock name
     stock_name = stock.info['longName']
     # Pass the data to the stock.html template
-    return render_template('stock.html', ind_stock=ticker_name, stock_lastPrice=stock_lastPrice, stock_income=stock_income, stock_balance=stock_balance, stock_cashflow=stock_cashflow, stock_major_holders=stock_major_holders, stock_mutual_fund_holders=stock_mutual_fund_holders, stock_name=stock_name)
+    return render_template('stock.html', ind_stock=ticker_name, stock_change=stock_change, stock_lastPrice=stock_lastPrice, stock_income=stock_income, stock_balance=stock_balance, stock_cashflow=stock_cashflow, stock_major_holders=stock_major_holders, stock_mutual_fund_holders=stock_mutual_fund_holders, stock_name=stock_name)
 
 @socketio.on('get_ind_stock_data')
 def get_ind_stock_data(ind_stock):

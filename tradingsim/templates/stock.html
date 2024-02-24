@@ -2,8 +2,22 @@
 {% block content %}
 <!-- In the stock.html template, display the data using Bootstrap tables and other components -->
 <div class="container">
-    <h1>{{ stock_name }}</h1>
-    <h2>Last Price: ${{ stock_lastPrice }}</h2>
+    <div style="height: 70px;"></div>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="row">
+                <h2 style="padding-left: 20px;"><a class="article-title" href="{{url_for('stock', ticker_name=ind_stock)}}">{{ ind_stock }}</a></h2> <!-- Increase left padding -->
+                <h2 class="{% if stock_change == 1 %}green{% else %}red{% endif %}" style="margin-left: 10px;">
+                    {{ stock_lastPrice }}<!-- Display the ticker name & Price -->
+                    {% if stock_change == 1 %} 
+                        <i class="fas fa-arrow-up" style="color:#2ecc71;"></i> 
+                    {% else %} 
+                        <i class="fas fa-arrow-down" style="color:#e74c3c;"></i> 
+                    {% endif %}
+                </h2>
+            </div>
+        </div>
+    </div>
     <div id="spinner" style="display: none;">
         <div class="loader"></div>
     </div>

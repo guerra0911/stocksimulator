@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<div style="height: 50px;"></div>
     <div class="container-fluid">
         <div class="main-screen">
             <div class="profile">
@@ -7,16 +8,16 @@
                 <h2>{{ current_user.username }}</h2>
             </div>
             <div class="total-value">
-                <h1>${{ '{:.2f}'.format(total_current_value) }}</h1>
+                <!-- <h1>${{ '{:.2f}'.format(total_account_value) }}</h1> -->
                 <p class="{{ 'green' if percent_increase >= 0 else 'red' }}">
                     {{ '+' if percent_increase >= 0 else '-' }}${{ '{:.2f}'.format(percent_increase|abs) }}%
                 </p>
             </div>
             <div class="stock-value">
-                <h3>Stock Value: ${{ '{:.2f}'.format(total_stock_value) }}</h3>
+                <h3>You have invested: ${{ '{:.2f}'.format(total_purchased_value) }}</h3>
             </div>
             <div class="balance">
-                <h3>Balance: ${{ '{:.2f}'.format(current_user.balance) }}</h3>
+                <h3>Your investments are now worth: ${{ '{:.2f}'.format(total_current_value) }}</h3>
             </div>
         </div>        
         <div class="row">
@@ -26,7 +27,7 @@
                         <tr>
                             <th>Ticker</th>
                             <th>Number of Shares</th>
-                            <th>Total Value</th>
+                            <th>Purchased Value</th>
                             <th>Current Value</th>
                             <th>+- $</th>
                             <th>+- %</th>
@@ -35,18 +36,18 @@
                         <tr>
                             <td><a class="article-title" href="{{url_for('stock', ticker_name=ticker)}}">{{ ticker }}</a></td>
                             <td>{{ data.numShares }}</td>
-                            <td>${{ '{:.2f}'.format( data.totalValue )}}</td>
+                            <td>${{ '{:.2f}'.format( data.totalPurchasedValue )}}</td>
                             <td>${{ '{:.2f}'.format(data.currentValue )}}</td>
                             <td>
-                                {% set value_change = data.currentValue - data.totalValue %}
+                                {% set value_change = data.currentValue - data.totalPurchasedValue %}
                                 <span class="{{ 'green' if value_change >= 0 else 'red' }}">
                                     {{ '+' if value_change >= 0 else '-' }}${{ '{:.2f}'.format(value_change|abs) }}
                                 </span>
                             </td>
                             <td>
-                                {% set percent_change = value_change / data.totalValue * 100 %}
+                                {% set percent_change = (data.currentValue / data.totalPurchasedValue) * 100 - 100%}
                                 <span class="{{ 'green' if percent_change >= 0 else 'red' }}">
-                                    {{ '+' if value_change >= 0 else '-' }}${{ '{:.2f}'.format(value_change|abs) }}
+                                    {{ '+' if percent_change >= 0 else '-' }}%{{ '{:.2f}'.format(percent_change|abs) }}
                                 </span>
                             </td>
                         </tr>
@@ -145,6 +146,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% if dt1NumShares > 0 %}
+                                        <div class="col-md-1.5">
+                                            <!-- Button to Open the Modal -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt1SellModal">
+                                                Sell
+                                            </button>
+                                            
+                                            <!-- The Modal -->
+                                            <div class="modal" id="dt1SellModal">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                            
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <div class="d-flex flex-column align-items-start">  
+                                                            <h4 class="modal-title mb-2">Sell {{dt1}} at ${{dt1LastPrice}}</h4>
+                                                            <h5>Current Balance = ${{ '{:.2f}'.format(current_user.balance) }}</h5>
+                                                            <h6>
+                                                                You Currently own: {{ dt1NumShares }} Shares
+                                                            </h6>
+                                                        </div>
+                                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    </div>
+                                            
+                                                    <!-- Modal Body -->
+                                                    <div class="modal-body">
+                                                        <form method="POST">
+                                                            {{ sell_forms['dt1'].hidden_tag() }}
+                                                            {{ sell_forms['dt1'].csrf_token }}  <!-- include csrf token -->
+                                                            {{ sell_forms['dt1'].sellTicker.label }} {{ sell_forms['dt1'].sellTicker() }}
+                                                            {{ sell_forms['dt1'].sellNumShares.label }} {{ sell_forms['dt1'].sellNumShares() }}
+                                                            {{ sell_forms['dt1'].sellSubmit() }}
+                                                        </form>                                                        
+                                                    </div>
+                                            
+                                                    <!-- Modal Footer -->
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    </div>
+                                            
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     <div class="col-md-1.5"></div>
                                     <div class="col-md-1">
                                         <!-- Button to Open the Modal -->
@@ -249,6 +295,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% if dt2NumShares > 0 %}
+                                        <div class="col-md-1.5">
+                                            <!-- Button to Open the Modal -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt2SellModal">
+                                                Sell
+                                            </button>
+                                            
+                                            <!-- The Modal -->
+                                            <div class="modal" id="dt2SellModal">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                            
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <div class="d-flex flex-column align-items-start">  
+                                                            <h4 class="modal-title mb-2">Sell {{dt2}} at ${{dt2LastPrice}}</h4>
+                                                            <h5>Current Balance = ${{ '{:.2f}'.format(current_user.balance) }}</h5>
+                                                            <h6>
+                                                                You Currently own: {{ dt2NumShares }} Shares
+                                                            </h6>
+                                                        </div>
+                                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    </div>
+                                            
+                                                    <!-- Modal Body -->
+                                                    <div class="modal-body">
+                                                    <form method="POST">
+                                                        {{ sell_forms['dt2'].hidden_tag() }}
+                                                        {{ sell_forms['dt2'].csrf_token }}  <!-- include csrf token -->
+                                                        {{ sell_forms['dt2'].sellTicker() }}
+                                                        {{ sell_forms['dt2'].sellNumShares.label }} {{ sell_forms['dt2'].sellNumShares() }}
+                                                        {{ sell_forms['dt2'].sellSubmit() }}
+                                                    </form>
+                                                    </div>
+                                            
+                                                    <!-- Modal Footer -->
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    </div>
+                                            
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     <div class="col-md-1.5"></div>
                                     <div class="col-md-1">
                                         <!-- Button to Open the Modal -->
@@ -355,6 +446,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% if dt3NumShares > 0 %}
+                                        <div class="col-md-1.5">
+                                            <!-- Button to Open the Modal -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt3SellModal">
+                                                Sell
+                                            </button>
+                                            
+                                            <!-- The Modal -->
+                                            <div class="modal" id="dt3SellModal">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                            
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <div class="d-flex flex-column align-items-start">  
+                                                            <h4 class="modal-title mb-2">Sell {{dt3}} at ${{dt3LastPrice}}</h4>
+                                                            <h5>Current Balance = ${{ '{:.2f}'.format(current_user.balance) }}</h5>
+                                                            <h6>
+                                                                You Currently own: {{ dt3NumShares }} Shares
+                                                            </h6>
+                                                        </div>
+                                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    </div>
+                                            
+                                                    <!-- Modal Body -->
+                                                    <div class="modal-body">
+                                                    <form method="POST">
+                                                        {{ sell_forms['dt3'].hidden_tag() }}
+                                                        {{ sell_forms['dt3'].csrf_token }}  <!-- include csrf token -->
+                                                        {{ sell_forms['dt3'].sellTicker() }}
+                                                        {{ sell_forms['dt3'].sellNumShares.label }} {{ sell_forms['dt3'].sellNumShares() }}
+                                                        {{ sell_forms['dt3'].sellSubmit() }}
+                                                    </form>
+                                                    </div>
+                                            
+                                                    <!-- Modal Footer -->
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    </div>
+                                            
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     <div class="col-md-1.5"></div>
                                     <div class="col-md-1">
                                         <!-- Button to Open the Modal -->
@@ -459,6 +595,51 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% if dt4NumShares > 0 %}
+                                        <div class="col-md-1.5">
+                                            <!-- Button to Open the Modal -->
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#dt4SellModal">
+                                                Sell
+                                            </button>
+                                            
+                                            <!-- The Modal -->
+                                            <div class="modal" id="dt4SellModal">
+                                                <div class="modal-dialog">
+                                                <div class="modal-content">
+                                            
+                                                    <!-- Modal Header -->
+                                                    <div class="modal-header">
+                                                        <div class="d-flex flex-column align-items-start">  
+                                                            <h4 class="modal-title mb-2">Sell {{dt4}} at ${{dt4LastPrice}}</h4>
+                                                            <h5>Current Balance = ${{ '{:.2f}'.format(current_user.balance) }}</h5>
+                                                            <h6>
+                                                                You Currently own: {{ dt4NumShares }} Shares
+                                                            </h6>
+                                                        </div>
+                                                        <button type="button" class="close" data-dismiss="modal">×</button>
+                                                    </div>
+                                            
+                                                    <!-- Modal Body -->
+                                                    <div class="modal-body">
+                                                    <form method="POST">
+                                                        {{ sell_forms['dt4'].hidden_tag() }}
+                                                        {{ sell_forms['dt4'].csrf_token }}  <!-- include csrf token -->
+                                                        {{ sell_forms['dt4'].sellTicker() }}
+                                                        {{ sell_forms['dt4'].sellNumShares.label }} {{ sell_forms['dt4'].sellNumShares() }}
+                                                        {{ sell_forms['dt4'].sellSubmit() }}
+                                                    </form>
+                                                    </div>
+                                            
+                                                    <!-- Modal Footer -->
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                                    </div>
+                                            
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endif %}
                                     <div class="col-md-1.5"></div>
                                     <div class="col-md-1">
                                         <!-- Button to Open the Modal -->
