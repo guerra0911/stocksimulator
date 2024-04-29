@@ -8,13 +8,22 @@ The future goals of this project are to implement AI trading strategies to see w
 
 Skills: Full-Stack Development · Python · Flask · JavaScript · HTML · SQL
 
-## Login Page
-Utilizing Flask Login Manager, I am able to host different users, storing each of them and their username, email, encrypted password, profile pic, etc. into the mySQL database. User's can then access their profile page to edit any of this information and update it accordingly.
-
 ## Transactions & Stock Info
 The user can scroll through a chart accessed from mySQL database including all of the transactions they have ever made in this web app, for any stock.
 
 Addtionally, using Plotly, Javascript and SocketIO, I have accessed the yfinance data to plot the stock history for different time periods, and socketIO allows it to continuously fetch and update the page to ensure the user is always seeing the most accurate data.
+<p align="center">
+  <img src="imgs/stock.jpeg" alt="Stock Page">
+</p>
 
 ## Web-App Home Page
 The home page shows the user's name, their profile picture, the amount they have invested in total, what their investments are currently worth, finally with a big highlight on the overall % change in the portfolio
+<p align="center">
+  <img src="imgs/homepage.jpeg" alt="Homepage">
+</p>
+
+## Login Page
+Utilizing Flask Login Manager, I am able to host different users, storing each of them and their username, email, encrypted password, profile pic, etc. into the mySQL database. User's can then access their profile page to edit any of this information and update it accordingly.
+<p align="center">
+  <img src="imgs/login.jpeg" alt="Login Page">
+</p>
